@@ -1,3 +1,3 @@
-Senior project 2012 plymouth state university
+Senior project 2012 Plymouth State University
 
 Jonathan Linden
