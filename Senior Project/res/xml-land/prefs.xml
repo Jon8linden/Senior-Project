@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Music Setting -->
+    <CheckBoxPreference 
+    	android:title="Music" 
+    	android:key="music" 
+    	android:defaultValue="true" 
+    	android:summaryOff="musicOff" 
+    	android:summaryOn="musicOn">
+    </CheckBoxPreference>
+    
+    <!-- Items -->
+    <CheckBoxPreference 
+	    android:title="Items" 
+	    android:key="items" 
+	    android:defaultValue="true" 
+	    android:summaryOff="itemsOff" 
+	    android:summaryOn="itemsOn">
+    </CheckBoxPreference>
+    
+</PreferenceScreen>
