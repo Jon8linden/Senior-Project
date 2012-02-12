@@ -8,12 +8,14 @@ import android.view.WindowManager;
 
 public class SeniorProjectActivity extends Activity {
     /** Called when the activity is first created. */
+	
     Splash animation;
     
     //set splash screen to on
 	static boolean splashScreen = true;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
+		
         super.onCreate(savedInstanceState);
         
 		//Set no title
@@ -26,7 +28,7 @@ public class SeniorProjectActivity extends Activity {
 		//Set view splash.xml
 		animation = new Splash(this);
 		setContentView(animation);
-		
+
 		//MediaPlayer splashSound = MediaPlayer.create(this, R.raw.);
 		//splashSound.start();
 

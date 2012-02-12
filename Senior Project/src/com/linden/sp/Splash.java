@@ -1,7 +1,5 @@
 package com.linden.sp;
 
-import com.linden.sp.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +43,7 @@ public class Splash extends View{
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
-
+		
 		//find middle of the screen
 		middle = canvas.getHeight()/2;
 		xLogo = canvas.getWidth()/5;
@@ -54,7 +52,7 @@ public class Splash extends View{
 		canvas.drawColor(Color.BLACK);
 
 		//move first car to right
-		if (xC1<canvas.getWidth()){
+		if (xC1 < canvas.getWidth()){
 			//draw blue sti
 			drawFirstCar(xC1,yCar, canvas);
 			xC1 = xC1+25;
@@ -62,14 +60,14 @@ public class Splash extends View{
 		}
 		
 		//move second car to right
-		else if (xC2<canvas.getWidth()){
+		else if (xC2 < canvas.getWidth()){
 			drawCopCar(xC2, yCar, canvas);
 			xC2 = xC2+25;
 			invalidate();
 		}
 		
 		//bring logo to center of the screen
-		else if (adder<middle){
+		else if (adder < middle){
 			drawLogo(xLogo, yLogo, canvas);
 			adder = adder + 2;
 			invalidate();
@@ -77,6 +75,7 @@ public class Splash extends View{
 		
 		//move on to main menu
 		else{
+			
 			Intent intent = new Intent(getContext(), MainMenu.class);
             ((Activity)getContext()).startActivity(intent);
 		}

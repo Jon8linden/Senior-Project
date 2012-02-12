@@ -30,13 +30,13 @@ public class Survival extends Activity{
 		btnEasy.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent intent = new Intent();
+				/*Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 				
 				bundle.putInt("survival", 1);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				
+				*/
 			}
 		});
 		//Medium
