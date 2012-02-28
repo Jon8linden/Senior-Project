@@ -17,7 +17,7 @@ public class MainMenu extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		Log.d("Main Menu", "Made it");
+		//Log.d("Main Menu", "Made it");
 		//Set no title
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		

@@ -6,8 +6,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 
-public class Player {
+public class Player{
 	//player image
 	private Bitmap playerImage;
 	private Bitmap rabbit;
@@ -23,14 +24,13 @@ public class Player {
 	private int ySpeed;
 	
 	public Player(Resources res, int x, int y){
-		//get images
-		//rabbit = BitmapFactory.decodeResource(res, R.drawable.rabbit);
+		//super (contextPlayer);
+		//get image
+		rabbit = BitmapFactory.decodeResource(res, R.drawable.rabbitsmall);
 		
 		//change player to selected car
 		playerImage = rabbit;
-		
-		
-		
+
 		//starting location
 		initialX = x-playerImage.getWidth() / 2;
 		initialY= (y*2) - playerImage.getHeight();
@@ -38,15 +38,30 @@ public class Player {
 		//starting speed
 		xSpeed = 0;
 		
-		//Starting health
-		//add in variable max health dependent on car
-		playerHealth = 100;
-		
 		
 	}
 	
 	//draw player on screen
 	public void doDraw(Canvas canvas){
+		//Log.d("Made it", "Player doDraw");
+		//canvas.drawBitmap(playerImage,100,100,null);
 		canvas.drawBitmap(playerImage,initialX,initialY,null);
 	}
+
+	//move player left and right
+	public void animation(long totalTime) {
+		//change speed based off of accelerometer gravity
+		xSpeed = (int) (Engine.gravity[1] * .9);
+		
+		//apply speed to xCordinates
+		initialX += xSpeed * (totalTime / 5f);
+		//check bounds
+		
+		
+		
+	}
+	//check bounds
+	
+	//get position of player
+	//get player dimensions 
 }

@@ -44,6 +44,8 @@ public class Career extends Activity{
 				bundle.putInt("level", (position+1));
 				intent.putExtras(bundle);
 				startActivity(intent);
+				
+				
 			}
 			
 		});

@@ -2,10 +2,12 @@ package com.linden.sp;
 
 import com.linden.sp.R;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
 
 public class CarSelect extends Activity{
 
@@ -24,6 +26,14 @@ public class CarSelect extends Activity{
 		setContentView(R.layout.carselect);
 		
 		
+		
+		
 	}
 
-}
+
+
+
+	    
+
+	  
+	}

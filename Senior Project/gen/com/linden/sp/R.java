@@ -12,24 +12,30 @@ public final class R {
     }
     public static final class drawable {
         public static final int background=0x7f020000;
-        public static final int icon=0x7f020001;
-        public static final int lvl1=0x7f020002;
-        public static final int lvl2=0x7f020003;
-        public static final int lvl3=0x7f020004;
-        public static final int lvl4=0x7f020005;
-        public static final int smallcop=0x7f020006;
-        public static final int smalllogo=0x7f020007;
-        public static final int smallsti=0x7f020008;
+        public static final int background2=0x7f020001;
+        public static final int delsol=0x7f020002;
+        public static final int icon=0x7f020003;
+        public static final int lvl1=0x7f020004;
+        public static final int lvl2=0x7f020005;
+        public static final int lvl3=0x7f020006;
+        public static final int lvl4=0x7f020007;
+        public static final int rabbit=0x7f020008;
+        public static final int rabbitsmall=0x7f020009;
+        public static final int smallcop=0x7f02000a;
+        public static final int smalllogo=0x7f02000b;
+        public static final int smallsti=0x7f02000c;
+        public static final int splashbackground=0x7f02000d;
     }
     public static final class id {
-        public static final int btnAbout=0x7f060004;
-        public static final int btnCareer=0x7f060002;
-        public static final int btnEasy=0x7f060005;
-        public static final int btnHard=0x7f060007;
-        public static final int btnMedium=0x7f060006;
-        public static final int btnSettings=0x7f060003;
-        public static final int btnSurvival=0x7f060001;
+        public static final int btnAbout=0x7f060005;
+        public static final int btnCareer=0x7f060003;
+        public static final int btnEasy=0x7f060006;
+        public static final int btnHard=0x7f060008;
+        public static final int btnMedium=0x7f060007;
+        public static final int btnSettings=0x7f060004;
+        public static final int btnSurvival=0x7f060002;
         public static final int gridview=0x7f060000;
+        public static final int linlay=0x7f060001;
     }
     public static final class layout {
         public static final int about=0x7f030000;

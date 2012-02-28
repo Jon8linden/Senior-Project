@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background2">
 
 	<Button 
 		android:text="Survival" 
@@ -19,7 +19,7 @@
 		android:layout_height="wrap_content">
 	</Button>
 	
-	<Button 
+	<Button
 		android:text="Settings" 
 		android:id="@+id/btnSettings" 
 		android:layout_width="wrap_content" 

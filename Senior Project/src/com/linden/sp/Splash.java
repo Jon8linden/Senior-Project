@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 
 public class Splash extends View{
@@ -15,11 +17,15 @@ public class Splash extends View{
 	Bitmap firstCar;
 	Bitmap copCar;
 	Bitmap logo;
+	Bitmap splashBackground;
+	Bitmap bMapScaled;
 
 	//set up x y coordinates 
 	int xC1=-800;
 	int xC2=-1800;
 	int xLogo;
+	boolean start=true;
+	
 	
 	int yCar=150;
 	int yLogo=0;
@@ -33,10 +39,16 @@ public class Splash extends View{
 	
 	public Splash(Context contextSplash) {
 		super(contextSplash);
+
 		
 		firstCar = BitmapFactory.decodeResource(getResources(), R.drawable.smallsti);
 		copCar = BitmapFactory.decodeResource(getResources(), R.drawable.smallcop);
 		logo = BitmapFactory.decodeResource(getResources(), R.drawable.smalllogo);
+		
+		//splashBackground = BitmapFactory.decodeResource(getResources(), R.drawable.splashbackground);
+		//bMapScaled = Bitmap.createScaledBitmap(splashBackground, 900, 500, false);
+		//mBitmap = Bitmap.createScaledBitmap(image, sketchBoard.getWidth(), sketchBoard.getHeight(), true)
+		//getResizedBitmap(splashBackground, getHeight(), getWidth());
 	}
 
 	@Override
@@ -44,12 +56,14 @@ public class Splash extends View{
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
 		
+		//draw background in location (0,0)
+		//splashBackground(0, 0, canvas);
+
 		//find middle of the screen
 		middle = canvas.getHeight()/2;
 		xLogo = canvas.getWidth()/5;
 		
-		//background to black
-		canvas.drawColor(Color.BLACK);
+
 
 		//move first car to right
 		if (xC1 < canvas.getWidth()){
@@ -67,7 +81,7 @@ public class Splash extends View{
 		}
 		
 		//bring logo to center of the screen
-		else if (adder < middle){
+		else if (adder < middle){			
 			drawLogo(xLogo, yLogo, canvas);
 			adder = adder + 2;
 			invalidate();
@@ -81,8 +95,6 @@ public class Splash extends View{
 		}
 
 	}
-	
-
 	private void drawLogo(int x, int y, Canvas canvas) {
 		// TODO Auto-generated method stub
 		canvas.drawBitmap(logo, x, y, paint);
@@ -97,6 +109,23 @@ public class Splash extends View{
 		// TODO Auto-generated method stub
 		canvas.drawBitmap(firstCar, x, y, paint);
 	}
-
-
+	private void splashBackground(int x, int y, Canvas canvas) {
+		// TODO Auto-generated method stub
+		canvas.drawBitmap(bMapScaled, x, y, paint);
+	} 
+	
+	/*private void getResizedBitmap(Bitmap background, int nHeight, int nWidth){
+		int width = background.getWidth();
+		int height = background.getHeight();
+		
+		float scaleWidth = ((float) nWidth) / width;
+		float scaleHeight = ((float) nHeight) / height;
+		
+		Matrix matrix = new Matrix();
+		matrix.postScale(scaleWidth, scaleHeight);
+		
+		Bitmap resizedBackground = Bitmap.createBitmap(background, 0, 0, width, height, matrix, false);
+		//return resizedBackground;
+	}
+	*/
 }

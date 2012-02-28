@@ -30,6 +30,7 @@ public class Survival extends Activity{
 		btnEasy.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
+				startActivity(new Intent("android.intent.action.CARSELECT"));
 				/*Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 				
