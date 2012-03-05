@@ -55,6 +55,12 @@ public class Player{
 		
 		//apply speed to xCordinates
 		initialX += xSpeed * (totalTime / 5f);
+		
+		//change yCordinates
+		ySpeed = (int) (Engine.yDirection);
+		
+		initialY= ySpeed ;
+		
 		//check bounds
 		
 		

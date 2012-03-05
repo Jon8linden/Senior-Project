@@ -9,10 +9,13 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.View.OnTouchListener;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class Engine extends Activity implements SensorEventListener{
+public class Engine extends Activity implements SensorEventListener, OnTouchListener{
 
 	// main game view panel
 	gameView gameView;
@@ -40,6 +43,8 @@ public class Engine extends Activity implements SensorEventListener{
 	
 	public static float[] gravity = new float[3];
 	public static float[] linear_acceleration = new float[3];
+	
+	public static int yDirection=0;
 	
 	
 	public Engine(){
@@ -89,6 +94,9 @@ public class Engine extends Activity implements SensorEventListener{
 	    
         gravity[1] = 0;
         linear_acceleration[1] = 0;
+        
+        //sets where the listener is for touch (gameView)
+        gameView.setOnTouchListener(this);
 	    
 	}
 
@@ -182,4 +190,30 @@ public class Engine extends Activity implements SensorEventListener{
 	        }
         }
 	}
+	public boolean onTouch(View v, MotionEvent event) {
+
+			if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					switch (gameView.clickScreen(event.getX(), event.getY())) {
+					case gasPeddle:
+						//move image up 
+						//if (yDirection < getHeight){ do this} else {nothing}
+						yDirection=yDirection-5;
+						Log.d("Made it", ""+yDirection);
+						
+						break;
+					case breakPeddle:
+						//move image down
+						//if (yDirection > getHeight){ do this} else {nothing}
+						yDirection=yDirection+10;
+						
+						Log.d("Made it", ""+yDirection);
+						break;
+					}
+
+			}
+			return true;
+
+	}
+	
+	
 }
