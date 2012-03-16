@@ -14,6 +14,10 @@ import android.view.SurfaceView;
 
 public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	
+	public static float leftBound;
+	public static float rightBound;
+	public static float topBound;
+	public static int bottomBound;
 	int gameWidth;
 	int gameHeight;
 	
@@ -39,8 +43,8 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 		getHolder().addCallback(this);
 		viewThread = new GameViewThread(this);
 		
-		//load our bitmap
-		gasBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.white_flag);
+		//load gas button
+		gasBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gas2);
 				
 		// load break button
 		breakBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.breakpeddle);
@@ -58,7 +62,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 		//gas button location
 		gasButtonX = (int) gasBitmap.getWidth();
     	gasButtonY = (getHeight()) - gasBitmap.getHeight();
-
+ 
     	//break button location
     	breakButtonX = (int) getWidth() - breakBitmap.getWidth();
     	breakButtonY = (int) (getHeight()) - breakBitmap.getHeight();
@@ -77,6 +81,12 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 		gameHeight = this.getHeight();
 		
 		//setup boundaries
+		rightBound = gameWidth-(gameWidth/5);
+		leftBound = (gameWidth/5);
+		
+		topBound = 0;
+		bottomBound= gameHeight;
+		
 		
 		//create player
 		player = new Player(getResources(), (int) gameWidth/2, (int) gameHeight/2);
@@ -112,7 +122,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	}
 
 
-	public Indicators clickScreen(float x, float y) {
+	public int clickScreen(float x, float y) {
 		//break button rect box
 		Rect breakButton = new Rect(breakButtonX, breakButtonY, breakButtonX+breakBitmap.getWidth(), breakButtonY+breakBitmap.getHeight());
 		
@@ -122,19 +132,19 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 		//check to see where on the canvas the user pressed
 		if (gas.contains((int) x, (int)y)) {
 			invalidate();
-			return Indicators.gasPeddle;
+			return 1;
 		
 		} 
 		
 		//check to see if break was pressed
 		else if (breakButton.contains((int) x, (int)y)) {
-			return Indicators.breakPeddle;
+			return -1;
 		
 		} 
 		
 		//did not touch a peddle
 		else {
-			return Indicators.fail;
+			return 0;
 		}
 		
 	}

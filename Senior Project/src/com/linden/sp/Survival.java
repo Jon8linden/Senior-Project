@@ -30,22 +30,24 @@ public class Survival extends Activity{
 		btnEasy.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				startActivity(new Intent("android.intent.action.CARSELECT"));
-				/*Intent intent = new Intent();
+				//startActivity(new Intent("android.intent.action.CARSELECT"));
+				Intent intent = new Intent("android.intent.action.CARSELECT");
 				Bundle bundle = new Bundle();
 				
 				bundle.putInt("survival", 1);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				*/
+				
 			}
 		});
+		
+		
 		//Medium
 		Button btnMedium = (Button) findViewById (R.id.btnMedium);
 		btnMedium.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent intent = new Intent();
+				Intent intent = new Intent("android.intent.action.CARSELECT");
 				Bundle bundle = new Bundle();
 				
 				bundle.putInt("survival", 2);
@@ -59,7 +61,7 @@ public class Survival extends Activity{
 		btnHard.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent intent = new Intent();
+				Intent intent = new Intent("android.intent.action.CARSELECT");
 				Bundle bundle = new Bundle();
 				
 				bundle.putInt("survival", 3);
@@ -68,7 +70,7 @@ public class Survival extends Activity{
 				
 			}
 		});		
-
+	
 		
 	}
 

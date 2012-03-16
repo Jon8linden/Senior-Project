@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.View.OnTouchListener;
@@ -31,6 +32,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	static Boolean surfaceCreated = false;
 	Boolean engineRunning = false;
 	static int totalRunTime = 0;
+	public static int level;
+	public static int selectedCar;
+	public static int difficulty;
 	
 	//gameOver
 	private int gravityDirection;
@@ -44,7 +48,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	public static float[] gravity = new float[3];
 	public static float[] linear_acceleration = new float[3];
 	
-	public static int yDirection=0;
+	public static int yDirection;
 	
 	
 	public Engine(){
@@ -88,6 +92,22 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         gameView = new gameView(this);
         setContentView(gameView);
 	    
+        //get data from bundle 
+        Bundle bundle = getIntent().getExtras();
+        level = bundle.getInt("level",1);      
+        selectedCar = bundle.getInt("car",1);
+        difficulty = bundle.getInt("difficulty",1);
+       // boolean career = bundle.getBoolean("careerMode", true);
+        
+        //Log.d("Engine", "level " + level);
+        
+        //Determines mode
+        //career mode
+
+        //set up preferences 
+        //preferences = PreferenceManager.getDefaultSharedPreferences(getBaseCon());
+        
+        
 	    //Accelerometer Sensor
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -99,6 +119,32 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         gameView.setOnTouchListener(this);
 	    
 	}
+
+
+	private void setLevel(int level) {
+		
+		if (level == 1){
+			//rabbit
+			//Accelerometer modifier
+			//game speed
+			//point modifier
+			//chance of items
+			//chance of obstructions
+			//finish condition score = # or timer
+			
+		}
+		else if (level == 2){
+			//truck
+		}
+		else if (level == 3){
+			//bmw
+		}
+		else if (level == 4){
+			//sti
+		}
+		
+	}
+	
 
 	@Override
 	protected void onPause() {
@@ -190,28 +236,34 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	        }
         }
 	}
+	
+	//check for button press
 	public boolean onTouch(View v, MotionEvent event) {
-
-			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					switch (gameView.clickScreen(event.getX(), event.getY())) {
-					case gasPeddle:
+		int x = gameView.clickScreen(event.getX(), event.getY());
+			//while (event.getAction() != MotionEvent.ACTION_UP) {
+		
+					//while (gameView.clickScreen(event.getX(), event.getY())) {
+					if (x == 1){
 						//move image up 
 						//if (yDirection < getHeight){ do this} else {nothing}
-						yDirection=yDirection-5;
+						yDirection=yDirection-1;
 						Log.d("Made it", ""+yDirection);
-						
-						break;
-					case breakPeddle:
+					}
+					else if(x==-1){
 						//move image down
 						//if (yDirection > getHeight){ do this} else {nothing}
-						yDirection=yDirection+10;
+						yDirection=yDirection+1;
 						
 						Log.d("Made it", ""+yDirection);
-						break;
+
+					}
+					else{
+						yDirection=0;
 					}
 
-			}
+			//}
 			return true;
+			
 
 	}
 	

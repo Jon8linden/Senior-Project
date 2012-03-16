@@ -1,20 +1,118 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent"
-    android:scrollbars="vertical"
-   >
+<LinearLayout 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+	    android:background="@drawable/background2"
 
-    <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content" android:layout_height="wrap_content">
+    >
+	    <RelativeLayout 
+            android:layout_width="fill_parent" 
+        	android:layout_height="fill_parent"
+        >	
+        <!-- Title -->
+			<TextView
+        
+		        android:id="@+id/selectedCar"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Select Car"
+		       	android:textSize="35dp" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
 
 
-        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/linlay" android:layout_width="wrap_content"
-            android:layout_height="fill_parent" android:stretchColumns="4"
-            android:background="#000000">
+    
+    	<!-- Car Select --> 
 
+	        <Gallery 
+		   	 	android:id="@+id/carselect"
+		        android:layout_width="fill_parent" 
+		        android:layout_height="wrap_content" 
+			    android:gravity="bottom"
+			    android:layout_below="@+id/selectedCar"
+			/>
+        
+        <!-- Attributes -->
+        
+        <!-- Health -->
+        
+        <TextView
+            	android:id="@+id/lblHealth"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Health:       "
+		        android:layout_below="@+id/carselect"
+		        android:textSize="25dp" />
+        
+        <TextView
+            	android:id="@+id/Health"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text=""
+		        android:layout_below="@+id/carselect"
+		        android:layout_toRightOf="@+id/lblHealth"
+		        android:textSize="25dp" />
+        
+        <!-- Speed -->
+        <TextView
+            	android:id="@+id/lblSpeed"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Speed:        "
+		        android:layout_below="@+id/lblHealth"
+		        android:textSize="25dp" />
+        
+         <TextView
+            	android:id="@+id/Speed"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text=""
+		        android:layout_below="@+id/lblHealth"
+		        android:layout_toRightOf="@+id/lblSpeed"
+		        android:textSize="25dp" />
+        
+        <!-- Handling -->
+        <TextView
+            	android:id="@+id/lblHandling"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Handling:   "
+		        android:layout_below="@+id/lblSpeed"
+		        android:textSize="25dp" />
+        
+        <TextView
+            	android:id="@+id/Handling"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text=""
+		        android:layout_below="@+id/lblSpeed"
+		        android:layout_toRightOf="@+id/lblHandling"
+		        android:textSize="25dp" />
+        <!-- Special -->
+        <TextView
+            	android:id="@+id/lblSpecial"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Special:       "
+		        android:layout_below="@+id/Handling"
+		        android:textSize="25dp" />
+        
+        <TextView
+            	android:id="@+id/Special"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text=""
+		        android:layout_below="@+id/Handling"
+		        android:layout_toRightOf="@+id/lblSpecial"
+		        android:textSize="25dp" />
+        <!-- OK Button -->
 
-        </TableLayout>
-
-    </HorizontalScrollView>
-
-</ScrollView>
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/Special"
+            android:layout_alignParentRight="true"
+            android:text="OK" />
+        
+	</RelativeLayout>
+    
+</LinearLayout>

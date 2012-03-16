@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 
 public class Splash extends View{
@@ -89,6 +86,10 @@ public class Splash extends View{
 		
 		//move on to main menu
 		else{
+			copCar.recycle();
+			logo.recycle();
+			firstCar.recycle();
+			
 			
 			Intent intent = new Intent(getContext(), MainMenu.class);
             ((Activity)getContext()).startActivity(intent);
@@ -109,23 +110,5 @@ public class Splash extends View{
 		// TODO Auto-generated method stub
 		canvas.drawBitmap(firstCar, x, y, paint);
 	}
-	private void splashBackground(int x, int y, Canvas canvas) {
-		// TODO Auto-generated method stub
-		canvas.drawBitmap(bMapScaled, x, y, paint);
-	} 
-	
-	/*private void getResizedBitmap(Bitmap background, int nHeight, int nWidth){
-		int width = background.getWidth();
-		int height = background.getHeight();
-		
-		float scaleWidth = ((float) nWidth) / width;
-		float scaleHeight = ((float) nHeight) / height;
-		
-		Matrix matrix = new Matrix();
-		matrix.postScale(scaleWidth, scaleHeight);
-		
-		Bitmap resizedBackground = Bitmap.createBitmap(background, 0, 0, width, height, matrix, false);
-		//return resizedBackground;
-	}
-	*/
+
 }
