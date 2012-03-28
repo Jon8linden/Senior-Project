@@ -2,12 +2,15 @@ package com.linden.sp.game;
 
 
 import com.linden.sp.R;
+import com.linden.sp.R.color;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -47,31 +50,61 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 		gasBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gas2);
 				
 		// load break button
-		breakBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.breakpeddle);
+		breakBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.brakebutton);
 		
 
 	}
 	
 	//draw to screen
 	public void doDraw (Canvas canvas){
-		//Log.d("Made it", "GameView doDraw");
+		// Draw Road
 		canvas.drawColor(Color.GRAY);
 		
-        // Draw character
+   		// Draw Grass
+   		Paint pGreen = new Paint();
+   		pGreen.setStyle(Paint.Style.FILL);
+   		pGreen.setColor(0xFF005e20);
+   		
+   		Rect leftGrass = new Rect();
+   		leftGrass.set(0,0, (int) leftBound, canvas.getHeight());
+   		canvas.drawRect(leftGrass, pGreen);
+   		
+   		Rect rightGrass = new Rect();
+   		rightGrass.set((int) rightBound,0, canvas.getWidth(), canvas.getHeight());
+   		canvas.drawRect(rightGrass, pGreen);
+   		
+   		// Set up text (color size location)
+   		Paint pText = new Paint();
+   		pText.setColor(Color.BLACK);
+   		pText.setTextSize((float) 30 * getContext().getResources().getDisplayMetrics().density);
+   		pText.setTextAlign(Align.CENTER);
+   		
+   		// Draw Health
+   		canvas.drawText("Health", (leftBound/2), (canvas.getHeight()/10), pText);
+   		canvas.drawText("100", (leftBound/2), (canvas.getHeight()/10) + pText.getTextSize(), pText);
+   		
+   		// Draw Score
+   		canvas.drawText("Score", rightBound + (leftBound/2) , (canvas.getHeight()/10), pText);
+   		canvas.drawText("0", rightBound +(leftBound/2), (canvas.getHeight()/10) + pText.getTextSize(), pText);
+   		
+        // Draw Character
 		player.doDraw(canvas);
-		//gas button location
-		gasButtonX = (int) gasBitmap.getWidth();
+
+		// Gas button location
+		gasButtonX = (int) getWidth() - breakBitmap.getWidth();
     	gasButtonY = (getHeight()) - gasBitmap.getHeight();
  
-    	//break button location
-    	breakButtonX = (int) getWidth() - breakBitmap.getWidth();
+    	// Break button location
+    	breakButtonX = 0;
     	breakButtonY = (int) (getHeight()) - breakBitmap.getHeight();
 
 
-    	//draw buttons
+    	// Draw Buttons
    		canvas.drawBitmap(gasBitmap, gasButtonX, gasButtonY, null);
    		canvas.drawBitmap(breakBitmap, breakButtonX, breakButtonY, null);
-		
+
+   		
+   		
 	}
 	
 	

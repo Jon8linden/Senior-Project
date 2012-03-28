@@ -26,15 +26,17 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		//add music thread
 	
 	//game looping speed
-	final static int gameLoopSpeed = 20;
+	final static int gameLoopSpeed = 5*Player.getSpeed();
 	
 	//start up game variables
 	static Boolean surfaceCreated = false;
-	Boolean engineRunning = false;
+	private Boolean engineRunning = false;
 	static int totalRunTime = 0;
 	public static int level;
 	public static int selectedCar;
 	public static int difficulty;
+	
+	
 	
 	//gameOver
 	private int gravityDirection;
@@ -88,15 +90,20 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	    //keep phone from sleeping
 	    this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
+	    
+        //get data from bundle 
+        Bundle bundle = getIntent().getExtras();
+        //set to 0 so it does not effect survival mode 
+        level = bundle.getInt("level",0);
+        
+        selectedCar = bundle.getInt("car",1);
+        difficulty = bundle.getInt("difficulty",1);
+        
 		// Set to gameView
         gameView = new gameView(this);
         setContentView(gameView);
 	    
-        //get data from bundle 
-        Bundle bundle = getIntent().getExtras();
-        level = bundle.getInt("level",1);      
-        selectedCar = bundle.getInt("car",1);
-        difficulty = bundle.getInt("difficulty",1);
+
        // boolean career = bundle.getBoolean("careerMode", true);
         
         //Log.d("Engine", "level " + level);

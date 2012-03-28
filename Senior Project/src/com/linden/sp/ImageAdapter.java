@@ -39,8 +39,7 @@ public class ImageAdapter extends BaseAdapter{
 	
 	//level thumbnails
 	private Integer[] Images = {R.drawable.lvl1, R.drawable.lvl2, R.drawable.lvl3, 
-			R.drawable.lvl4, R.drawable.icon,R.drawable.icon,R.drawable.icon,
-			R.drawable.icon};
+			R.drawable.lvl4, R.drawable.icon,R.drawable.icon,R.drawable.icon};
 
 	public int getCount() {
 		return Images.length;

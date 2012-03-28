@@ -141,7 +141,7 @@ int difficulty;
 	        		   
 	        		 //set labels
 	        		   SelectCar.setText("BMW");
-	        		   Health.setText("4");
+	        		   Health.setText("5");
 	        		   Speed.setText("4");
 	        		   Handling.setText("4");
 	        		   //1.5% point mod
@@ -155,7 +155,7 @@ int difficulty;
 	        		   
 	        		 //set labels
 	        		   SelectCar.setText("911");
-	        		   Health.setText("5");
+	        		   Health.setText("4");
 	        		   Speed.setText("5");
 	        		   Handling.setText("5");
 	        		   Special.setText(" ");

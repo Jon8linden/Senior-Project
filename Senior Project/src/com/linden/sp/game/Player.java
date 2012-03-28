@@ -18,6 +18,8 @@ public class Player{
 	private float yPlayerPosition;
 	
 	private int playerHealth;
+	private int handling;
+	private static int speed;
 	
 	// X and Y speeds
 	private int xSpeed;
@@ -40,49 +42,91 @@ public class Player{
 	}
 	//determine which car to place as player image
 	public void changePlayerImage(Resources res){
-		//
+		//career 
 		if (Engine.level == 1){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.rabbittrimed);
+			playerHealth = 200;
+			handling = 2;
+			setSpeed(1);
 		}
 		else if (Engine.level == 2){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.gallerydelsol);
+			playerHealth = 100;
+			handling = 3;
+			setSpeed(1);
 		}
 		else if (Engine.level == 3){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep);
+			playerHealth = 200;
+			handling = 2;
+			setSpeed(2);
 		}
 		else if (Engine.level == 4){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.icon);
+			playerImage = BitmapFactory.decodeResource(res, R.drawable.towncop);
+			playerHealth = 600;
+			handling = 2;
+			setSpeed(2);
 		}
 		else if (Engine.level == 5){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.gamebmw);
+			playerHealth = 500;
+			handling = 4;
+			setSpeed(4);
 		} 
 		else if (Engine.level == 6){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.porschetrimed);
+			playerHealth = 400;
+			handling = 5;
+			setSpeed(5);
 		}
 		else if (Engine.level == 7){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.smallsti);
+			playerImage = BitmapFactory.decodeResource(res, R.drawable.stirear);
+			playerHealth = 500;
+			handling = 6;
+			setSpeed(6);
 		}
 		//Survival
-		if (Engine.selectedCar == 0){
+		else if (Engine.selectedCar == 0){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.rabbittrimed);
+			playerHealth = 100;
+			handling = 2;
+			setSpeed(1);
 		}
 		else if (Engine.selectedCar == 1){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.gallerydelsol);
+			playerHealth = 100;
+			handling = 3;
+			setSpeed(1);
 		}
 		else if (Engine.selectedCar == 2){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep);
+			playerHealth = 200;
+			handling = 2;
+			setSpeed(2);
 		}
 		else if (Engine.selectedCar == 3){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.icon);
+			playerHealth = 600;
+			handling = 2;
+			setSpeed(2);
 		}
 		else if (Engine.selectedCar == 4){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.gamebmw);
+			playerHealth = 500;
+			handling = 4;
+			setSpeed(4);
 		}
 		else if (Engine.selectedCar == 5){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.porschetrimed);
+			playerHealth = 400;
+			handling = 5;
+			setSpeed(5);
 		}
 		else if (Engine.selectedCar == 6){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.smallsti);
+			playerImage = BitmapFactory.decodeResource(res, R.drawable.stirear);
+			playerHealth = 500;
+			handling = 6;
+			setSpeed(6);
 		}
 		
 		
@@ -99,7 +143,7 @@ public class Player{
 	public void animation(long totalTime) {
 		//change speed based off of accelerometer gravity
 		//handling mod = .9
-		xSpeed = (int) (Engine.gravity[1] * .9);
+		xSpeed = (int) (Engine.gravity[1] * .22 * handling);
 		
 		//apply speed to xCordinates
 		xPlayerPosition += xSpeed * (totalTime / 5f);
@@ -139,6 +183,12 @@ public class Player{
 			//ySpeed=-ySpeed;
 		}
 		
+	}
+	public static int getSpeed() {
+		return speed;
+	}
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 	
 	//get position of player

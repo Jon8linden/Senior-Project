@@ -19,5 +19,5 @@ public class About extends Activity{
 		//display about.xml 
 		setContentView(R.layout.about);
 	}
-	
+	 
 }
