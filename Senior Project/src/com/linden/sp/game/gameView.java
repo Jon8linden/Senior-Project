@@ -1,6 +1,9 @@
 package com.linden.sp.game;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.linden.sp.R;
 import com.linden.sp.R.color;
 
@@ -24,7 +27,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	int gameWidth;
 	int gameHeight;
 	
-	
+	 
 	//button placements
 	private int gasButtonX;
 	private int gasButtonY;
@@ -38,6 +41,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	//view thread
 	private GameViewThread viewThread;
 	
+	public ArrayList<Civilian> obstacleElements = new ArrayList<Civilian>();
 	public Player player;
 	
 
@@ -103,7 +107,14 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
    		canvas.drawBitmap(gasBitmap, gasButtonX, gasButtonY, null);
    		canvas.drawBitmap(breakBitmap, breakButtonX, breakButtonY, null);
 
-   		
+		// Draw obstructions
+		synchronized (obstacleElements) {
+			if (obstacleElements.size() > 0) {
+	            for (Iterator<Civilian> it = obstacleElements.iterator(); it.hasNext();) {
+	            	it.next().draw(canvas);
+	            }
+			}
+        }
    		
 	}
 	
@@ -152,6 +163,15 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	public void animation (long totalTime){
 		player.animation(totalTime);
 		
+		// Move the civilians down
+    	synchronized (obstacleElements) {
+    		if (obstacleElements.size() > 0) {
+	            for (Iterator<Civilian> it = obstacleElements.iterator(); it.hasNext();) {
+	            	it.next().animate(totalTime);
+	            }
+    		}
+    	}
+		
 	}
 
 
@@ -159,7 +179,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 		//break button rect box
 		Rect breakButton = new Rect(breakButtonX, breakButtonY, breakButtonX+breakBitmap.getWidth(), breakButtonY+breakBitmap.getHeight());
 		
-		//flag button rect box
+		//gas button rect box
 		Rect gas = new Rect(gasButtonX, gasButtonY, gasButtonX+gasBitmap.getWidth(), gasButtonY+gasBitmap.getHeight());
 		
 		//check to see where on the canvas the user pressed

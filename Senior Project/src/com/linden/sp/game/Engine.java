@@ -16,6 +16,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.Iterator;
+import java.util.Random;
+
+
 public class Engine extends Activity implements SensorEventListener, OnTouchListener{
 
 	// main game view panel
@@ -26,19 +30,28 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		//add music thread
 	
 	//game looping speed
-	final static int gameLoopSpeed = 5*Player.getSpeed();
+	final static int gameLoopSpeed = 10;
 	
 	//start up game variables
 	static Boolean surfaceCreated = false;
 	private Boolean engineRunning = false;
+	
 	static int totalRunTime = 0;
+	private int lastObstacleTime = 0;
+	
 	public static int level;
 	public static int selectedCar;
 	public static int difficulty;
+
+	static double levelSpeedMult = 1;
+
+
+	//obstacle chance
+	private static Random random = new Random();
+	static int obstacleChance = 60;
+	private int spawnDelay = 35000;
 	
-	
-	
-	//gameOver
+	Boolean gameOver = false;
 	private int gravityDirection;
 	
 	
@@ -60,11 +73,20 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	}
 	
 	public void runGame(){
+		
+		if(engineRunning){
+			if(surfaceCreated){
+				obstacle();
+			}
+			totalRunTime();
+		}
 		//check to see what to start
 		//if music is off dont start
 		//items
+		
 		//score and check if win condition
-		totalRunTime();
+		//calculateScore();
+
 		
 		
 	}
@@ -72,10 +94,63 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 	private void totalRunTime() {
 		totalRunTime++;
-		//double actualTimeRunning = (double) (totalRunTime *gameSpeed)/1000;
+
+		// Calculate actual game running time in seconds
+		double actualRunningTime = (double)(totalRunTime * gameLoopSpeed) / 500;
+		
+		// Log every 5 seconds (real time)
+		if ((actualRunningTime % 5.0) == 0) {
+			Log.i("Game Time", "Game has been running for " + (int)actualRunningTime + " seconds");
+			Log.i("Game Time", "Game running time: " + totalRunTime);
+		}
 		
 	}
+	private void obstacle(){
+		int chance = random.nextInt(obstacleChance);
+		
+		//place obstacle on the screen based off chance
+		if (chance == (obstacleChance/7)){
+			// place obstacle on the screen if it has not produced an obstacle within the spawn time
+			if ((totalRunTime - lastObstacleTime) > spawnDelay){
+				synchronized (gameView.obstacleElements){
+					gameView.obstacleElements.add(new Civilian(getResources()));
+					//set the time of the last obstacle
+					lastObstacleTime = totalRunTime;
+					Log.i("obstical made", " : " + totalRunTime);
+					
+				}
+				
+			}
+		}
+		// moves existing civilian cars
+		synchronized(gameView.obstacleElements){
+			for (Iterator<Civilian> car = gameView.obstacleElements.iterator(); car.hasNext();){
 
+				// Get the current car
+            	Civilian currentCar = car.next();
+            	
+            	// If any of the obstruction elements are out of bounds
+            	if (currentCar.checkBounds()){
+            		car.remove();
+            		Log.i("Civilian Car ", "Obstruction Destroyed at " + totalRunTime);
+            	}
+            	
+            	else if (currentCar.checkCollision(gameView.player)) {
+            		// Remove the item
+            		car.remove();
+            		
+            		//checkHealth
+            		//updateScore
+            		
+            		// Debugging
+            		Log.i("Civilian Car ", "Obstruction Destroyed at " + totalRunTime);
+            	}
+			}
+			
+		}
+		
+		
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -126,29 +201,49 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         gameView.setOnTouchListener(this);
 	    
 	}
-
+	// calculate score based off time and hitting obstacles
+	public void calculateScore(){
+		
+	}
 
 	private void setLevel(int level) {
 		
 		if (level == 1){
-			//rabbit
-			//Accelerometer modifier
-			//game speed
+			levelSpeedMult = .5;
 			//point modifier
-			//chance of items
+			//chance of items = 0
 			//chance of obstructions
 			//finish condition score = # or timer
 			
 		}
 		else if (level == 2){
-			//truck
+			//delsol
 		}
 		else if (level == 3){
-			//bmw
+			//jeep
 		}
 		else if (level == 4){
+			//truck
+		}
+		else if (level == 5){
+			
+		}
+		else if (level == 6){
+			
+		}
+		else if (level == 7){
 			//sti
 		}
+		else if (level == 101){
+			//easy
+		}
+		else if (level == 102){
+			//med
+		}
+		else if (level == 103){
+			//hard
+		}
+		this.level = level;
 		
 	}
 	
@@ -172,11 +267,19 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		engineRunning = true;
 		engineThread.start();
 	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		totalRunTime=0;
+		surfaceCreated = false;
+		//stop music
+	}
 
 	//start engine
 	@Override
 	protected void onStart() {
-		Log.d("Made it", "Engine onStart");
+		Log.d("Made it", "Engine onStart" + gameLoopSpeed);
 		super.onStart();
 		//create thread
 		
@@ -184,7 +287,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			
 
 			public void run() {
-				while (engineRunning){
+				
+				//while engine is running and game is not over runGame
+				while (engineRunning && !gameOver){
 					runGame();
 				}
 				try{
@@ -193,12 +298,13 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					
 				}
 				
-				
+				//if (gameOver){finish();}
 			}
 			
 			
 		});
 	}
+
 
 	public static void surfaceCreated() {
 		surfaceCreated = true;
@@ -208,7 +314,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		
 	}
-
+	//Accelerometer changes left to right controls
 	public void onSensorChanged(SensorEvent event) {
  
 		final float alpha = (float) 0.8;
@@ -244,31 +350,29 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         }
 	}
 	
-	//check for button press
+	//check for button press (gas break)
 	public boolean onTouch(View v, MotionEvent event) {
 		int x = gameView.clickScreen(event.getX(), event.getY());
 			//while (event.getAction() != MotionEvent.ACTION_UP) {
-		
-					//while (gameView.clickScreen(event.getX(), event.getY())) {
+			if (event.getAction() == android.view.MotionEvent.ACTION_DOWN){
+					
+					//gas button
 					if (x == 1){
 						//move image up 
-						//if (yDirection < getHeight){ do this} else {nothing}
-						yDirection=yDirection-1;
-						Log.d("Made it", ""+yDirection);
+						yDirection= yDirection -Player.getAcceleration();
 					}
-					else if(x==-1){
+					//break button
+					else if (x==-1){
 						//move image down
-						//if (yDirection > getHeight){ do this} else {nothing}
-						yDirection=yDirection+1;
-						
-						Log.d("Made it", ""+yDirection);
+						yDirection= yDirection + Player.getBreakingPower();
+
 
 					}
-					else{
-						yDirection=0;
-					}
+			}
+			else if (event.getAction() == android.view.MotionEvent.ACTION_UP){
+					yDirection=0;
+			}
 
-			//}
 			return true;
 			
 

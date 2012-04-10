@@ -22,8 +22,7 @@ public class ImageAdapterCarSelect extends BaseAdapter {
             R.drawable.rabbittrimed,
             R.drawable.gallerydelsol,
             R.drawable.jeep,
-            //truck
-            R.drawable.icon,
+            R.drawable.blacktruck,
             R.drawable.gallerybmw,
             R.drawable.porschetrimed,
             R.drawable.stiback

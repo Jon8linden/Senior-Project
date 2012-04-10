@@ -10,32 +10,64 @@ package com.linden.sp;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int green=0x7f050000;
+    }
     public static final class drawable {
         public static final int background=0x7f020000;
         public static final int background2=0x7f020001;
-        public static final int delsol=0x7f020002;
-        public static final int icon=0x7f020003;
-        public static final int lvl1=0x7f020004;
-        public static final int lvl2=0x7f020005;
-        public static final int lvl3=0x7f020006;
-        public static final int lvl4=0x7f020007;
-        public static final int rabbit=0x7f020008;
-        public static final int rabbitsmall=0x7f020009;
-        public static final int smallcop=0x7f02000a;
-        public static final int smalllogo=0x7f02000b;
-        public static final int smallsti=0x7f02000c;
-        public static final int splashbackground=0x7f02000d;
+        public static final int blacktruck=0x7f020002;
+        public static final int blue600=0x7f020003;
+        public static final int brakebutton=0x7f020004;
+        public static final int delsol=0x7f020005;
+        public static final int gallerybmw=0x7f020006;
+        public static final int gallerydelsol=0x7f020007;
+        public static final int gamebmw=0x7f020008;
+        public static final int gas=0x7f020009;
+        public static final int gas2=0x7f02000a;
+        public static final int green600=0x7f02000b;
+        public static final int icon=0x7f02000c;
+        public static final int jeep=0x7f02000d;
+        public static final int jeep600=0x7f02000e;
+        public static final int lightgreen600=0x7f02000f;
+        public static final int lvl1=0x7f020010;
+        public static final int lvl2=0x7f020011;
+        public static final int lvl3=0x7f020012;
+        public static final int lvl4=0x7f020013;
+        public static final int porschetrimed=0x7f020014;
+        public static final int rabbit=0x7f020015;
+        public static final int rabbit600=0x7f020016;
+        public static final int rabbitsmall=0x7f020017;
+        public static final int rabbittrimed=0x7f020018;
+        public static final int smallcop=0x7f020019;
+        public static final int smalllogo=0x7f02001a;
+        public static final int smallsti=0x7f02001b;
+        public static final int splashbackground=0x7f02001c;
+        public static final int stiback=0x7f02001d;
+        public static final int stiplayer600=0x7f02001e;
+        public static final int towncop=0x7f02001f;
+        public static final int yellow600=0x7f020020;
     }
     public static final class id {
-        public static final int btnAbout=0x7f060005;
-        public static final int btnCareer=0x7f060003;
-        public static final int btnEasy=0x7f060006;
-        public static final int btnHard=0x7f060008;
-        public static final int btnMedium=0x7f060007;
-        public static final int btnSettings=0x7f060004;
-        public static final int btnSurvival=0x7f060002;
-        public static final int gridview=0x7f060000;
-        public static final int linlay=0x7f060001;
+        public static final int Handling=0x7f070008;
+        public static final int Health=0x7f070004;
+        public static final int Special=0x7f07000a;
+        public static final int Speed=0x7f070006;
+        public static final int btnAbout=0x7f07000f;
+        public static final int btnCareer=0x7f07000d;
+        public static final int btnEasy=0x7f070010;
+        public static final int btnHard=0x7f070012;
+        public static final int btnMedium=0x7f070011;
+        public static final int btnOK=0x7f07000b;
+        public static final int btnSettings=0x7f07000e;
+        public static final int btnSurvival=0x7f07000c;
+        public static final int carselect=0x7f070002;
+        public static final int gridview=0x7f070000;
+        public static final int lblHandling=0x7f070007;
+        public static final int lblHealth=0x7f070003;
+        public static final int lblSpecial=0x7f070009;
+        public static final int lblSpeed=0x7f070005;
+        public static final int selectedCar=0x7f070001;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -46,10 +78,31 @@ public final class R {
         public static final int survival=0x7f030005;
     }
     public static final class string {
-        public static final int app_name=0x7f050001;
-        public static final int hello=0x7f050000;
+        public static final int SelectCar=0x7f060001;
+        public static final int app_name=0x7f060000;
     }
     public static final class xml {
         public static final int prefs=0x7f040000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a carSelect.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #carSelect_android_galleryItemBackground com.linden.sp:android_galleryItemBackground}</code></td><td></td></tr>
+           </table>
+           @see #carSelect_android_galleryItemBackground
+         */
+        public static final int[] carSelect = {
+            0x0101004c
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.linden.sp.R.attr#android_galleryItemBackground}
+          attribute's value can be found in the {@link #carSelect} array.
+          @attr name android:android_galleryItemBackground
+        */
+        public static final int carSelect_android_galleryItemBackground = 0;
+    };
 }

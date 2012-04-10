@@ -5,6 +5,8 @@ import java.util.Random;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import com.linden.sp.R;
 
@@ -28,8 +30,11 @@ public class Civilian {
 	
 	//Civilian car images
 	private final int[] civilianCars = {
-		R.drawable.stirear,
-		R.drawable.icon
+		R.drawable.green600,
+		R.drawable.lightgreen600,
+		R.drawable.yellow600,
+		R.drawable.blue600,
+		R.drawable.towncop
 			
 			
 	};
@@ -38,6 +43,7 @@ public class Civilian {
 		
 		
 		// Set the bitmap to Civilian Car Image
+		setImageAttributes();
 		ccImage = BitmapFactory.decodeResource(res,ccDrawable);
 		
 		
@@ -48,39 +54,53 @@ public class Civilian {
 		ccX = randomX;
 		ccY = 0 - ccImage.getHeight();
 		
-		//set speed
+		//set starting speed
 		speedY();
 		
 	}
 	
+	public void draw(Canvas canvas){
+		canvas.drawBitmap(ccImage, ccX, ccY, null);
+	}
+	
 	private void speedY(){
-		ccSpeedY= (double) Engine.gameLoopSpeed;
+		//game looping speed slowed down by a percentage multiplied by level speed modifier
+		ccSpeedY= (double) Engine.gameLoopSpeed * .25;
+		ccSpeedY= (double) Engine.levelSpeedMult*ccSpeedY;
 	}
 	
 	public void animate (long elapsedTime){
+		//update speed
 		speedY();
 		
 		//animate
 		ccY+= ccSpeedY * (elapsedTime / 5f);
 		
 	}
-	
-	private void setImage(){
+	//set random obstacle and attributes based off image
+	private void setImageAttributes(){
 		int randomImage = random.nextInt(civilianCars.length);
 		
 		ccDrawable = civilianCars[randomImage];
 		
 		//check image and apply effects
-		if (randomImage == 0){
-			// effects
+		if (randomImage == 0 || randomImage == 1 || randomImage == 3 || randomImage == 4 ){
+			damage=5;
 		}
-		else if (randomImage == 1){
-			
+		else if (randomImage == 5){
+			//cop car
 		}
 		
 		
 		
 		
+	}
+	public boolean checkBounds(){
+		//remove image if it is no longer on the screen
+		if (ccY- ccImage.getHeight() >= gameView.bottomBound){
+			return true;
+		}
+		return false;
 	}
 	
 	public int [] getLocation() {
@@ -92,6 +112,74 @@ public class Civilian {
 		
 		//return location
 		return location;
+	}
+
+	public boolean checkHitPlayer(Player player) {
+		//get array for player retangle
+		//int[][] obstacleBounds = this.getBounds;
+		
+		
+		
+		return false;
+	}
+	public int [][] getBounds(){
+		// 4 corners x,y for each corner
+		int[][] bounds = new int [4][2];
+		
+		//Fill array clockwise (starting with Top Left)
+		bounds[0][0] = (int) ccX;
+		bounds[0][1] = (int) ccY;
+		
+		bounds[1][0] = (int) ((int) ccX + (int) ccImage.getWidth());
+		bounds[1][1] = (int) ccY;
+		
+		bounds[2][0] = (int) ((int) ccX + (int) ccImage.getWidth());
+		bounds[2][1] = (int) ((int) ccY + (int) ccImage.getHeight());	
+		
+		bounds[3][0] = (int) ccX;
+		bounds[3][1] = (int) ((int) ccY + (int) ccImage.getHeight());	
+		
+		return bounds;
+	}
+	public int[] getSize(){
+		int[] playerSize = new int [2];
+		
+		playerSize[0] = (int) ccImage.getWidth();
+		playerSize[1] = (int) ccImage.getHeight();
+		
+		return playerSize;
+		
+	}
+	
+	//check collision
+	public boolean checkCollision(Player player){
+		//get x,y arrays for car and player
+		int[][] obsticalLocation = this.getBounds();
+		int[][] playerLocation = Player.getPlayerBounds();
+		
+		//place rectangle in array location for player
+    	Rect obsticalRect = new Rect(
+    			obsticalLocation[0][0],
+    			obsticalLocation[0][1],
+    			obsticalLocation[2][0],
+    			obsticalLocation[2][1]
+        	);
+        	Rect playerRect = new Rect(
+        		playerLocation[0][0],
+        		playerLocation[0][1],
+        		playerLocation[2][0],
+        		playerLocation[2][1]
+        	);
+        	
+        	if(Rect.intersects(playerRect, obsticalRect)){
+        		return true;
+        	}
+		
+		
+		
+		
+		
+		return false;
 	}
 	
 }
