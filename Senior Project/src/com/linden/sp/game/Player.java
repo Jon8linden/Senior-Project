@@ -46,7 +46,6 @@ public class Player{
 	
 	//determine which car to place as player image
 	public void changePlayerImage(Resources res){
-		//career 
 		if (Engine.level == 1){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.rabbit);
 			//health (this should probably be resistance so everyone has 100 health)
@@ -83,6 +82,11 @@ public class Player{
 			playerHealth = 600;
 			handling = 2;
 			setSpeed(2);
+			
+			//top speed (how fast items/civilians move)
+			Engine.levelSpeedMult=.25;
+			//spawn chance
+			Engine.maxObstructions = 3;
 			setAcceleration(4);
 			setBreakingPower(2);
 		}
@@ -91,6 +95,11 @@ public class Player{
 			playerHealth = 500;
 			handling = 4;
 			setSpeed(4);
+			//top speed (how fast items/civilians move)
+			Engine.levelSpeedMult=.35;
+			//spawn delay
+			Engine.spawnDelay=40;
+			
 			setAcceleration(5);
 			setBreakingPower(4);
 		} 
@@ -103,84 +112,6 @@ public class Player{
 			setBreakingPower(6);
 		}
 		else if (Engine.level == 7){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.stiplayer600);
-			playerHealth = 500;
-			handling = 6;
-			Engine.levelSpeedMult=1;
-			setSpeed(6);
-			setAcceleration(6);
-			setBreakingPower(5);
-		}
-		//Survival
-		else if (Engine.selectedCar == 0){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.rabbit600);
-			playerHealth = 100;
-			handling = 2;
-			
-			//top speed (how fast items/civilians move)
-			Engine.levelSpeedMult=.1;
-			//spawn delay
-			Engine.spawnDelay=100;
-			//max number of obstructions
-			Engine.maxObstructions = 3;
-			
-			setSpeed(1);
-			setAcceleration(2);
-			setBreakingPower(3);
-		}
-		else if (Engine.selectedCar == 1){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.gallerydelsol);
-			playerHealth = 100;
-			handling = 3;
-			setSpeed(1);
-			setAcceleration(2);
-			setBreakingPower(3);
-		}
-		else if (Engine.selectedCar == 2){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep600);
-			playerHealth = 200; 
-			handling = 2;
-			setSpeed(2);
-			setAcceleration(3);
-			setBreakingPower(2);
-		}
-		else if (Engine.selectedCar == 3){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.blacktruck);
-			playerHealth = 600;
-			handling = 2;
-			
-			//top speed (how fast items/civilians move)
-			Engine.levelSpeedMult=.25;
-			//spawn chance
-			Engine.maxObstructions = 3;
-			
-			setSpeed(2);
-			setAcceleration(4);
-			setBreakingPower(2);
-		}
-		else if (Engine.selectedCar == 4){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.gamebmw);
-			playerHealth = 500;
-			handling = 4;
-			scoreMult=2;
-			//top speed (how fast items/civilians move)
-			Engine.levelSpeedMult=.35;
-			//spawn delay
-			Engine.spawnDelay=40;
-			
-			setSpeed(4);
-			setAcceleration(5);
-			setBreakingPower(4);
-		} 
-		else if (Engine.selectedCar == 5){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.porschetrimed);
-			playerHealth = 400;
-			handling = 5;
-			setSpeed(5);
-			setAcceleration(7);
-			setBreakingPower(6);
-		}
-		else if (Engine.selectedCar == 6){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.stiplayer600); 
 			playerHealth = 500;
 			handling = 6;
