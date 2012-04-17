@@ -17,7 +17,7 @@ public class Player{
 	private static float xPlayerPosition;
 	private static float yPlayerPosition;
 	
-	private int playerHealth;
+	static int playerHealth;
 	private int handling;
 	private static int breakingPower;
 	private static int speed;
@@ -61,7 +61,7 @@ public class Player{
 			setBreakingPower(3);
 		}
 		else if (Engine.level == 2){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.gallerydelsol);
+			playerImage = BitmapFactory.decodeResource(res, R.drawable.delsol600);
 			playerHealth = 100;
 			handling = 3;
 			Engine.levelSpeedMult= .15;
@@ -104,7 +104,7 @@ public class Player{
 			setBreakingPower(4);
 		} 
 		else if (Engine.level == 6){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.porschetrimed);
+			playerImage = BitmapFactory.decodeResource(res, R.drawable.porsche600);
 			playerHealth = 400;
 			handling = 5;
 			setSpeed(5);

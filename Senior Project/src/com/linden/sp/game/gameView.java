@@ -85,11 +85,11 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
    		
    		// Draw Health
    		canvas.drawText("Health", (leftBound/2), (canvas.getHeight()/10), pText);
-   		canvas.drawText("100", (leftBound/2), (canvas.getHeight()/10) + pText.getTextSize(), pText);
+   		canvas.drawText(""+Player.playerHealth, (leftBound/2), (canvas.getHeight()/10) + pText.getTextSize(), pText);
    		
    		// Draw Score
    		canvas.drawText("Score", rightBound + (leftBound/2) , (canvas.getHeight()/10), pText);
-   		canvas.drawText("0", rightBound +(leftBound/2), (canvas.getHeight()/10) + pText.getTextSize(), pText);
+   		canvas.drawText(""+Engine.score, rightBound +(leftBound/2), (canvas.getHeight()/10) + pText.getTextSize(), pText);
    		
         // Draw Character
 		player.doDraw(canvas);
