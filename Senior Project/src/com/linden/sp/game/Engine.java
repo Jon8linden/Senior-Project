@@ -31,6 +31,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 	//game looping speed
 	final static int gameLoopSpeed = 20;
+	private int scoreDelay= 25;
+	private int currentScoreTime=0;
+	
 	
 	//start up game variables
 	static Boolean surfaceCreated = false;
@@ -91,13 +94,22 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		//items
 		
 		//score and check if win condition
-		//calculateScore();
+		incrementScore();
 
 		
 		
 	}
 	
 	
+	private void incrementScore() {
+		//delay score from incrementing extreamly fast
+		if ((totalRunTime - currentScoreTime)> scoreDelay){
+			score++;
+			currentScoreTime= totalRunTime;
+		}
+		
+	}
+
 	private void totalRunTime() {
 		totalRunTime++;
 
@@ -197,8 +209,6 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         Bundle bundle = getIntent().getExtras();
         //set to 0 so it does not effect survival mode 
         level = bundle.getInt("level",0);
-        
-        selectedCar = bundle.getInt("car",1);
         difficulty = bundle.getInt("difficulty",1);
         
 		// Set to gameView
@@ -229,8 +239,26 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	    
 	}
 	
+	static void updateDifficulty() {
+		// TODO Auto-generated method stub
+		//difficulty changes number of obstructions on the screen at once
+		if (difficulty == 1){
+			maxObstructions = 3;
+			//number of cops
+		}
+		else if (difficulty == 2){
+			maxObstructions = 4;
+			//number of cops
+		}
+		else if (difficulty == 3){
+			maxObstructions = 5;
+			//number of cops
+		}
+		
+	}
+
 	// calculate score based off time and hitting obstacles
-	public void calculateScore(){
+	public void calculateScore(){		
 		score = score+1 * Player.scoreMult;
 		Log.i("calculateScore ", "Current Score " + score);
 		

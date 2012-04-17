@@ -59,6 +59,10 @@ public class Player{
 			setAcceleration(2);
 			//breakingPower = number; implement later
 			setBreakingPower(3);
+			//max number of obstructions
+			Engine.maxObstructions = 3;
+			//spawn delay must be changed due to speed of cars
+			Engine.spawnDelay=100;
 		}
 		else if (Engine.level == 2){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.delsol600);
@@ -68,6 +72,7 @@ public class Player{
 			setSpeed(1);
 			setAcceleration(3);
 			setBreakingPower(3);
+			Engine.maxObstructions = 3;
 		}
 		else if (Engine.level == 3){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep);
@@ -76,6 +81,8 @@ public class Player{
 			setSpeed(2);
 			setAcceleration(3);
 			setBreakingPower(2);
+			
+			Engine.maxObstructions = 3;
 		}
 		else if (Engine.level == 4){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.blacktruck);
@@ -89,6 +96,8 @@ public class Player{
 			Engine.maxObstructions = 3;
 			setAcceleration(4);
 			setBreakingPower(2);
+			
+			Engine.maxObstructions = 3;
 		}
 		else if (Engine.level == 5){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.gamebmw);
@@ -102,6 +111,7 @@ public class Player{
 			
 			setAcceleration(5);
 			setBreakingPower(4);
+			Engine.maxObstructions = 4;
 		} 
 		else if (Engine.level == 6){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.porsche600);
@@ -125,9 +135,8 @@ public class Player{
 			setAcceleration(6);
 			setBreakingPower(9);
 		}
-		
-		
-		
+
+		Engine.updateDifficulty();
 	}
 	
 	//draw player on screen
