@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 
 public class Player{
 
@@ -21,6 +22,8 @@ public class Player{
 	private static int breakingPower;
 	private static int speed;
 	private static int acceleration;
+
+	public static int scoreMult=1;
 	
 	// X and Y speeds
 	private int xSpeed;
@@ -39,7 +42,6 @@ public class Player{
 		//starting speed
 		xSpeed = 0;
 		
-		
 	}
 	
 	//determine which car to place as player image
@@ -53,8 +55,6 @@ public class Player{
 			handling = 2;
 			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.1;
-			//spawn chance
-			Engine.obstacleChance= 40000;
 			setSpeed(1);
 			//acceleration (add this to menu screen)
 			setAcceleration(2);
@@ -119,8 +119,10 @@ public class Player{
 			
 			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.1;
-			//spawn chance
-			Engine.obstacleChance= 40000;
+			//spawn delay
+			Engine.spawnDelay=100;
+			//max number of obstructions
+			Engine.maxObstructions = 3;
 			
 			setSpeed(1);
 			setAcceleration(2);
@@ -146,6 +148,12 @@ public class Player{
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.blacktruck);
 			playerHealth = 600;
 			handling = 2;
+			
+			//top speed (how fast items/civilians move)
+			Engine.levelSpeedMult=.25;
+			//spawn chance
+			Engine.maxObstructions = 3;
+			
 			setSpeed(2);
 			setAcceleration(4);
 			setBreakingPower(2);
@@ -154,11 +162,11 @@ public class Player{
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.gamebmw);
 			playerHealth = 500;
 			handling = 4;
-			
+			scoreMult=2;
 			//top speed (how fast items/civilians move)
-			Engine.levelSpeedMult=.5;
-			//spawn chance
-			Engine.obstacleChance= 35000;
+			Engine.levelSpeedMult=.35;
+			//spawn delay
+			Engine.spawnDelay=40;
 			
 			setSpeed(4);
 			setAcceleration(5);
@@ -178,9 +186,9 @@ public class Player{
 			handling = 6;
 			
 			//top speed (how fast items/civilians move)
-			Engine.levelSpeedMult=1;
-			//spawn chance
-			Engine.obstacleChance= 1000;
+			Engine.levelSpeedMult=.5;
+			//spawn delay
+			Engine.spawnDelay=20;
 			
 			setSpeed(6);
 			setAcceleration(6);
@@ -295,6 +303,12 @@ public class Player{
 	}
 	public static void setAcceleration(int acceleration) {
 		Player.acceleration = acceleration;
+	}
+
+	public void damagePlayer(int damage) {
+		// TODO Auto-generated method stub
+		playerHealth= playerHealth-damage;
+		Log.i("Hurt player ", "Health is at: " + playerHealth);
 	}
 
 }

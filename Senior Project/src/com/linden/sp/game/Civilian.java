@@ -30,28 +30,39 @@ public class Civilian {
 	
 	//Civilian car images
 	private final int[] civilianCars = {
-		R.drawable.green600,
-		R.drawable.lightgreen600,
-		R.drawable.yellow600,
-		R.drawable.blue600,
-		R.drawable.towncop
-			
-			
+			R.drawable.green600,
+			R.drawable.lightgreen600,
+			R.drawable.yellow600,
+			R.drawable.blue600,
+			R.drawable.towncop,
+			R.drawable.undercovercop600,
+			R.drawable.statepolice600
 	};
 	
+	
 	public Civilian (Resources res){
-		
-		
+
 		// Set the bitmap to Civilian Car Image
 		setImageAttributes();
 		ccImage = BitmapFactory.decodeResource(res,ccDrawable);
 		
 		
-		// Get horizontal starting location (between bounds, accounting for Civilian Car image width)
-		float randomX = random.nextInt((int) (gameView.rightBound - gameView.leftBound - ccImage.getWidth())) + gameView.leftBound;
-		
+		// Get horizontal starting location (between bounds, accounting for Civilian Car image width and keeping within the 4 lanes)
+		int randomX=random.nextInt(5);
 		//starting location
-		ccX = randomX;
+		if (randomX<=1){
+			ccX = gameView.leftBound;
+		}
+		else if (randomX>1 && randomX<=2){
+			ccX = gameView.leftBound + ccImage.getWidth();
+		}
+		else if (randomX>2 && randomX<=3){
+			ccX = gameView.leftBound + ccImage.getWidth()*2;
+		}
+		else if (randomX>3 && randomX<=4){
+			ccX = gameView.rightBound-ccImage.getWidth();
+		}
+
 		ccY = 0 - ccImage.getHeight();
 		
 		//set starting speed
@@ -95,6 +106,10 @@ public class Civilian {
 		
 		
 	}
+	public int getDamage(){
+		return damage;
+	}
+	
 	public boolean checkBounds(){
 		//remove image if it is no longer on the screen
 		if (ccY- ccImage.getHeight() >= gameView.bottomBound){
@@ -114,14 +129,6 @@ public class Civilian {
 		return location;
 	}
 
-	public boolean checkHitPlayer(Player player) {
-		//get array for player retangle
-		//int[][] obstacleBounds = this.getBounds;
-		
-		
-		
-		return false;
-	}
 	public int [][] getBounds(){
 		// 4 corners x,y for each corner
 		int[][] bounds = new int [4][2];
@@ -181,5 +188,6 @@ public class Civilian {
 		
 		return false;
 	}
+	
 	
 }

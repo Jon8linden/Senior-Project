@@ -30,7 +30,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		//add music thread
 	
 	//game looping speed
-	final static int gameLoopSpeed = 10;
+	final static int gameLoopSpeed = 20;
 	
 	//start up game variables
 	static Boolean surfaceCreated = false;
@@ -38,18 +38,24 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 	static int totalRunTime = 0;
 	private int lastObstacleTime = 0;
+	private int lastItemTime=0;
+
+	private int numberOfObstructions = 0;
 	
 	public static int level;
 	public static int selectedCar;
 	public static int difficulty;
 
 	static double levelSpeedMult = 1;
+	static int score;
 
 
 	//obstacle chance
 	private static Random random = new Random();
-	static int obstacleChance = 60;
-	private int spawnDelay = 35000;
+	static int spawnDelay = 50;
+	static int maxObstructions = 5;
+	static int iChance=100;
+	private int itemSpawnDelay = 50;
 	
 	Boolean gameOver = false;
 	private int gravityDirection;
@@ -96,7 +102,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		totalRunTime++;
 
 		// Calculate actual game running time in seconds
-		double actualRunningTime = (double)(totalRunTime * gameLoopSpeed) / 500;
+		double actualRunningTime = (double)(totalRunTime * gameLoopSpeed) / 1000;
 		
 		// Log every 5 seconds (real time)
 		if ((actualRunningTime % 5.0) == 0) {
@@ -106,21 +112,17 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		
 	}
 	private void obstacle(){
-		int chance = random.nextInt(obstacleChance);
-		
-		//place obstacle on the screen based off chance
-		if (chance == (obstacleChance/7)){
 			// place obstacle on the screen if it has not produced an obstacle within the spawn time
-			if ((totalRunTime - lastObstacleTime) > spawnDelay){
+			if ((totalRunTime - lastObstacleTime) > spawnDelay && numberOfObstructions < maxObstructions){
 				synchronized (gameView.obstacleElements){
 					gameView.obstacleElements.add(new Civilian(getResources()));
 					//set the time of the last obstacle
 					lastObstacleTime = totalRunTime;
 					Log.i("obstical made", " : " + totalRunTime);
-					
+					numberOfObstructions++;
 				}
 				
-			}
+			
 		}
 		// moves existing civilian cars
 		synchronized(gameView.obstacleElements){
@@ -132,16 +134,19 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
             	// If any of the obstruction elements are out of bounds
             	if (currentCar.checkBounds()){
             		car.remove();
+            		numberOfObstructions--;
             		Log.i("Civilian Car ", "Obstruction Destroyed at " + totalRunTime);
             	}
             	
             	else if (currentCar.checkCollision(gameView.player)) {
             		// Remove the item
             		car.remove();
-            		
+            		numberOfObstructions--;
+            		//update health
+            		gameView.player.damagePlayer(currentCar.getDamage());
             		//checkHealth
             		//updateScore
-            		
+            		calculateScore();
             		// Debugging
             		Log.i("Civilian Car ", "Obstruction Destroyed at " + totalRunTime);
             	}
@@ -151,6 +156,28 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		
 		
 	}
+	
+	private void item(){
+		int  iRandom= random.nextInt(iChance);
+		
+		if (iRandom == (iChance/7)){
+			// place obstacle on the screen if it has not produced an obstacle within the spawn time
+			if ((totalRunTime - lastItemTime) > itemSpawnDelay){
+				synchronized (gameView.obstacleElements){
+					gameView.obstacleElements.add(new Civilian(getResources()));
+					//set the time of the last obstacle
+					lastItemTime = totalRunTime;
+					Log.i("Item made", " : " + totalRunTime);
+					
+				}
+				
+			}
+		}
+		
+		
+		
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -201,51 +228,14 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         gameView.setOnTouchListener(this);
 	    
 	}
+	
 	// calculate score based off time and hitting obstacles
 	public void calculateScore(){
+		score = score+1 * Player.scoreMult;
+		Log.i("calculateScore ", "Current Score " + score);
 		
 	}
 
-	private void setLevel(int level) {
-		
-		if (level == 1){
-			levelSpeedMult = .5;
-			//point modifier
-			//chance of items = 0
-			//chance of obstructions
-			//finish condition score = # or timer
-			
-		}
-		else if (level == 2){
-			//delsol
-		}
-		else if (level == 3){
-			//jeep
-		}
-		else if (level == 4){
-			//truck
-		}
-		else if (level == 5){
-			
-		}
-		else if (level == 6){
-			
-		}
-		else if (level == 7){
-			//sti
-		}
-		else if (level == 101){
-			//easy
-		}
-		else if (level == 102){
-			//med
-		}
-		else if (level == 103){
-			//hard
-		}
-		this.level = level;
-		
-	}
 	
 
 	@Override
@@ -291,11 +281,12 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				//while engine is running and game is not over runGame
 				while (engineRunning && !gameOver){
 					runGame();
-				}
+				
 				try{
 					Thread.sleep(gameLoopSpeed);
 				} catch (Throwable t){
 					
+				}
 				}
 				
 				//if (gameOver){finish();}
