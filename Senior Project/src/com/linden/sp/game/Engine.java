@@ -204,7 +204,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		// Set to gameView
         gameView = new gameView(this);
         setContentView(gameView);
-	    
+        Log.d("difficulty ", " "+ difficulty);
 
        // boolean career = bundle.getBoolean("careerMode", true);
         

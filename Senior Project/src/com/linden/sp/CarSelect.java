@@ -38,6 +38,8 @@ int difficulty;
 		//set view CarSelect.xml
 		setContentView(R.layout.carselect);
 		
+        Bundle bundle = getIntent().getExtras();
+        difficulty=bundle.getInt("survival",0);
 		//need to take in level difficulty value	
 		Log.d("difficulty ", " "+ difficulty);
 		

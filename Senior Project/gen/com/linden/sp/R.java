@@ -43,10 +43,15 @@ public final class R {
         public static final int smalllogo=0x7f02001a;
         public static final int smallsti=0x7f02001b;
         public static final int splashbackground=0x7f02001c;
-        public static final int stiback=0x7f02001d;
-        public static final int stiplayer600=0x7f02001e;
-        public static final int towncop=0x7f02001f;
-        public static final int yellow600=0x7f020020;
+        public static final int statepolice=0x7f02001d;
+        public static final int statepolice600=0x7f02001e;
+        public static final int stiback=0x7f02001f;
+        public static final int stiplayer600=0x7f020020;
+        public static final int towncop=0x7f020021;
+        public static final int undercovercop=0x7f020022;
+        public static final int undercovercop600=0x7f020023;
+        public static final int wrench=0x7f020024;
+        public static final int yellow600=0x7f020025;
     }
     public static final class id {
         public static final int Handling=0x7f070008;
