@@ -7,10 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 import com.linden.sp.R;
 
-public class Civilian {
+public class Cops {
 	
 	//cc means Civilian Car
 	
@@ -24,28 +25,28 @@ public class Civilian {
 	// Random location for CC
 	private static Random random = new Random();
 	
-	private int ccDrawable;
+	private int copDrawable;
 	private int damage;
-	private Bitmap ccImage;
+	private Bitmap copImage;
 	
 	static int laneWidth;
 	
 	//Civilian car images
-	private final int[] civilianCars = {
-			R.drawable.green600,
-			R.drawable.lightgreen600,
-			R.drawable.yellow600,
-			R.drawable.blue600,
+	private final int[] copCars = {
+			R.drawable.towncop,
+			R.drawable.statepolice600,
+			R.drawable.undercovercop600
+
 	};
 	
 	
-	public Civilian (Resources res){
-
+	public Cops (Resources res){
+		
 		// Set the bitmap to Civilian Car Image
 		setImageAttributes();
-		ccImage = BitmapFactory.decodeResource(res,ccDrawable);
+		copImage = BitmapFactory.decodeResource(res,copDrawable);
 		
-		laneWidth= ccImage.getWidth();
+		laneWidth= copImage.getWidth();
 		
 		// Get horizontal starting location (between bounds, accounting for Civilian Car image width and keeping within the 4 lanes)
 		int randomX=random.nextInt(5);
@@ -66,7 +67,7 @@ public class Civilian {
 			ccX = gameView.rightBound-laneWidth;
 		}
 
-		ccY = 0 - ccImage.getHeight();
+		ccY = 0 - copImage.getHeight();
 		
 		//set starting speed
 		speedY();
@@ -74,7 +75,7 @@ public class Civilian {
 	}
 	
 	public void draw(Canvas canvas){
-		canvas.drawBitmap(ccImage, ccX, ccY, null);
+		canvas.drawBitmap(copImage, ccX, ccY, null);
 	}
 	
 	private void speedY(){
@@ -93,9 +94,9 @@ public class Civilian {
 	}
 	//set random obstacle and attributes based off image
 	private void setImageAttributes(){
-		int randomImage = random.nextInt(civilianCars.length);
+		int randomImage = random.nextInt(copCars.length);
 		
-		ccDrawable = civilianCars[randomImage];
+		copDrawable = copCars[randomImage];
 		
 		//check image and apply effects
 		if (randomImage == 0 || randomImage == 1 || randomImage == 3 || randomImage == 4 ){
@@ -115,7 +116,7 @@ public class Civilian {
 	
 	public boolean checkBounds(){
 		//remove image if it is no longer on the screen
-		if (ccY- ccImage.getHeight() >= gameView.bottomBound){
+		if (ccY- copImage.getHeight() >= gameView.bottomBound){
 			return true;
 		}
 		return false;
@@ -140,22 +141,22 @@ public class Civilian {
 		bounds[0][0] = (int) ccX;
 		bounds[0][1] = (int) ccY;
 		
-		bounds[1][0] = (int) ((int) ccX + (int) ccImage.getWidth());
+		bounds[1][0] = (int) ((int) ccX + (int) copImage.getWidth());
 		bounds[1][1] = (int) ccY;
 		
-		bounds[2][0] = (int) ((int) ccX + (int) ccImage.getWidth());
-		bounds[2][1] = (int) ((int) ccY + (int) ccImage.getHeight());	
+		bounds[2][0] = (int) ((int) ccX + (int) copImage.getWidth());
+		bounds[2][1] = (int) ((int) ccY + (int) copImage.getHeight());	
 		
 		bounds[3][0] = (int) ccX;
-		bounds[3][1] = (int) ((int) ccY + (int) ccImage.getHeight());	
+		bounds[3][1] = (int) ((int) ccY + (int) copImage.getHeight());	
 		
 		return bounds;
 	}
 	public int[] getSize(){
 		int[] playerSize = new int [2];
 		
-		playerSize[0] = (int) ccImage.getWidth();
-		playerSize[1] = (int) ccImage.getHeight();
+		playerSize[0] = (int) copImage.getWidth();
+		playerSize[1] = (int) copImage.getHeight();
 		
 		return playerSize;
 		

@@ -38,6 +38,7 @@ public class Item {
 			itemImage = BitmapFactory.decodeResource(res,itemDrawable);
 			
 			
+			
 			// Get horizontal starting location (between bounds, accounting for Civilian Car image width and keeping within the 4 lanes)
 			int randomX=random.nextInt(5);
 			//starting location
@@ -45,13 +46,13 @@ public class Item {
 				itemX = gameView.leftBound;
 			}
 			else if (randomX>1 && randomX<=2){
-				itemX = gameView.leftBound + itemImage.getWidth();
+				itemX = gameView.leftBound + Civilian.laneWidth;
 			}
 			else if (randomX>2 && randomX<=3){
-				itemX = gameView.leftBound + itemImage.getWidth()*2;
+				itemX = gameView.leftBound + Civilian.laneWidth*2;
 			}
 			else if (randomX>3 && randomX<=4){
-				itemX = gameView.rightBound-itemImage.getWidth();
+				itemX = gameView.rightBound-Civilian.laneWidth;
 			}
 
 			itemY = 0 - itemImage.getHeight();

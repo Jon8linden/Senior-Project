@@ -41,9 +41,11 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 	static int totalRunTime = 0;
 	private int lastObstacleTime = 0;
+	private int lastCopTime=0;
 	private int lastItemTime=0;
 
-	private int numberOfObstructions = 0;
+	private int numberOfCops = 0;
+	private int numberOfCC=0;
 	
 	public static int level;
 	public static int selectedCar;
@@ -56,7 +58,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	//obstacle chance
 	private static Random random = new Random();
 	static int spawnDelay = 50;
-	static int maxObstructions = 5;
+	static int maxCC=0;
+	static int maxCops=0;
+	
 	static int iChance=100;
 	private int itemSpawnDelay = 50;
 	
@@ -73,6 +77,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	public static float[] linear_acceleration = new float[3];
 	
 	public static int yDirection;
+
 	
 	
 	public Engine(){
@@ -86,6 +91,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		if(engineRunning){
 			if(surfaceCreated){
 				obstacle();
+				cop();
+
 			}
 			totalRunTime();
 		}
@@ -125,13 +132,13 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	}
 	private void obstacle(){
 			// place obstacle on the screen if it has not produced an obstacle within the spawn time
-			if ((totalRunTime - lastObstacleTime) > spawnDelay && numberOfObstructions < maxObstructions){
+			if ((totalRunTime - lastObstacleTime) > spawnDelay && numberOfCC < maxCC){
 				synchronized (gameView.obstacleElements){
 					gameView.obstacleElements.add(new Civilian(getResources()));
 					//set the time of the last obstacle
 					lastObstacleTime = totalRunTime;
 					Log.i("obstical made", " : " + totalRunTime);
-					numberOfObstructions++;
+					numberOfCC++;
 				}
 				
 			
@@ -146,14 +153,14 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
             	// If any of the obstruction elements are out of bounds
             	if (currentCar.checkBounds()){
             		car.remove();
-            		numberOfObstructions--;
+            		numberOfCC--;
             		Log.i("Civilian Car ", "Obstruction Destroyed at " + totalRunTime);
             	}
             	
             	else if (currentCar.checkCollision(gameView.player)) {
             		// Remove the item
             		car.remove();
-            		numberOfObstructions--;
+            		numberOfCC--;
             		//update health
             		gameView.player.damagePlayer(currentCar.getDamage());
             		//checkHealth
@@ -168,6 +175,52 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		
 		
 	}
+	
+	private void cop(){
+		// place obstacle on the screen if it has not produced an obstacle within the spawn time
+		if ((totalRunTime - lastObstacleTime) > spawnDelay && numberOfCops < maxCops){
+			synchronized (gameView.copElement){
+				gameView.copElement.add(new Cops(getResources()));
+				//set the time of the last obstacle
+				lastObstacleTime = totalRunTime;
+				Log.i("obstical made", " : " + totalRunTime);
+				numberOfCops++;
+			}
+			
+		
+	}
+	// moves existing civilian cars
+	synchronized(gameView.copElement){
+		for (Iterator<Cops> car = gameView.copElement.iterator(); car.hasNext();){
+
+			// Get the current car
+        	Cops currentCar = car.next();
+        	
+        	// If any of the obstruction elements are out of bounds
+        	if (currentCar.checkBounds()){
+        		car.remove();
+        		numberOfCops--;
+        		Log.i("Civilian Car ", "Obstruction Destroyed at " + totalRunTime);
+        	}
+        	
+        	else if (currentCar.checkCollision(gameView.player)) {
+        		// Remove the item
+        		car.remove();
+        		numberOfCops--;
+        		//update health
+        		gameView.player.damagePlayer(currentCar.getDamage());
+        		//checkHealth
+        		//updateScore
+        		calculateScore();
+        		// Debugging
+        		Log.i("Civilian Car ", "Obstruction Destroyed at " + totalRunTime);
+        	}
+		}
+		
+	}
+	
+}
+	
 	
 	private void item(){
 		int  iRandom= random.nextInt(iChance);
@@ -243,16 +296,19 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		// TODO Auto-generated method stub
 		//difficulty changes number of obstructions on the screen at once
 		if (difficulty == 1){
-			maxObstructions = 3;
-			//number of cops
+			//maxCops = 0;
+			//maxCC=3;
+
 		}
 		else if (difficulty == 2){
-			maxObstructions = 4;
-			//number of cops
+			//maxCops = 2;
+			//maxCC=2;
+
 		}
 		else if (difficulty == 3){
-			maxObstructions = 5;
-			//number of cops
+			//maxCops = 3;
+			//maxCC=2;
+
 		}
 		
 	}

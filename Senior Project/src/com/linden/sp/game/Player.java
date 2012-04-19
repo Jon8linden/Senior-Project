@@ -59,8 +59,9 @@ public class Player{
 			setAcceleration(2);
 			//breakingPower = number; implement later
 			setBreakingPower(3);
-			//max number of obstructions
-			Engine.maxObstructions = 3;
+			//max number of CC and Cops
+			Engine.maxCC = 3;
+			Engine.maxCops = 0;
 			//spawn delay must be changed due to speed of cars
 			Engine.spawnDelay=100;
 		}
@@ -69,35 +70,38 @@ public class Player{
 			playerHealth = 100;
 			handling = 3;
 			Engine.levelSpeedMult= .15;
-			setSpeed(1);
+			setSpeed(6);
 			setAcceleration(3);
 			setBreakingPower(3);
-			Engine.maxObstructions = 3;
+			Engine.maxCC = 3;
+			Engine.maxCops = 0;
+			Engine.spawnDelay=100;
 		}
 		else if (Engine.level == 3){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep);
 			playerHealth = 200;
 			handling = 2;
+			Engine.levelSpeedMult= .15;
 			setSpeed(2);
 			setAcceleration(3);
 			setBreakingPower(2);
-			
-			Engine.maxObstructions = 3;
+			Engine.maxCC = 2;
+			Engine.maxCops = 1;
+			Engine.spawnDelay=100;
 		}
 		else if (Engine.level == 4){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.blacktruck);
 			playerHealth = 600;
 			handling = 2;
 			setSpeed(2);
-			
 			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.25;
 			//spawn chance
-			Engine.maxObstructions = 3;
 			setAcceleration(4);
 			setBreakingPower(2);
-			
-			Engine.maxObstructions = 3;
+			Engine.maxCC = 2;
+			Engine.maxCops = 2;
+
 		}
 		else if (Engine.level == 5){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.gamebmw);
@@ -111,7 +115,9 @@ public class Player{
 			
 			setAcceleration(5);
 			setBreakingPower(4);
-			Engine.maxObstructions = 4;
+			Engine.maxCC = 3;
+			Engine.maxCops = 2;
+
 		} 
 		else if (Engine.level == 6){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.porsche600);
@@ -120,6 +126,8 @@ public class Player{
 			setSpeed(5);
 			setAcceleration(7);
 			setBreakingPower(6);
+			Engine.maxCC = 1;
+			Engine.maxCops = 4;
 		}
 		else if (Engine.level == 7){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.stiplayer600); 
@@ -130,10 +138,10 @@ public class Player{
 			Engine.levelSpeedMult=.5;
 			//spawn delay
 			Engine.spawnDelay=20;
-			
-			setSpeed(6);
 			setAcceleration(6);
 			setBreakingPower(9);
+			Engine.maxCC = 1;
+			Engine.maxCops = 4;
 		}
 
 		Engine.updateDifficulty();
@@ -246,7 +254,6 @@ public class Player{
 	}
 
 	public void damagePlayer(int damage) {
-		// TODO Auto-generated method stub
 		playerHealth= playerHealth-damage;
 		Log.i("Hurt player ", "Health is at: " + playerHealth);
 	}
