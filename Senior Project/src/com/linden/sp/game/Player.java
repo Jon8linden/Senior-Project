@@ -22,6 +22,7 @@ public class Player{
 	private static int breakingPower;
 	private static int speed;
 	private static int acceleration;
+	private static int careerFinish;
 
 	public static int scoreMult=1;
 	
@@ -42,19 +43,19 @@ public class Player{
 		//starting speed
 		xSpeed = 0;
 		
+		
 	}
 	
 	//determine which car to place as player image
 	public void changePlayerImage(Resources res){
 		if (Engine.level == 1){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.rabbit);
+			playerImage = BitmapFactory.decodeResource(res, R.drawable.rabbit600);
 			//health (this should probably be resistance so everyone has 100 health)
 			playerHealth = 200;
 			//Accelerometer multiplier
 			handling = 2;
 			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.1;
-			setSpeed(1);
 			//acceleration (add this to menu screen)
 			setAcceleration(2);
 			//breakingPower = number; implement later
@@ -64,36 +65,37 @@ public class Player{
 			Engine.maxCops = 0;
 			//spawn delay must be changed due to speed of cars
 			Engine.spawnDelay=100;
+			//finish condition
+			setCareerFinish(25);
 		}
 		else if (Engine.level == 2){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.delsol600);
 			playerHealth = 100;
 			handling = 3;
 			Engine.levelSpeedMult= .15;
-			setSpeed(6);
 			setAcceleration(3);
 			setBreakingPower(3);
 			Engine.maxCC = 3;
 			Engine.maxCops = 0;
 			Engine.spawnDelay=100;
+			setCareerFinish(25);
 		}
 		else if (Engine.level == 3){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep);
+			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep600);
 			playerHealth = 200;
 			handling = 2;
-			Engine.levelSpeedMult= .15;
-			setSpeed(2);
+			Engine.levelSpeedMult= .25;
 			setAcceleration(3);
 			setBreakingPower(2);
 			Engine.maxCC = 2;
 			Engine.maxCops = 1;
 			Engine.spawnDelay=100;
+			setCareerFinish(25);
 		}
 		else if (Engine.level == 4){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.blacktruck);
 			playerHealth = 600;
 			handling = 2;
-			setSpeed(2);
 			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.25;
 			//spawn chance
@@ -101,13 +103,13 @@ public class Player{
 			setBreakingPower(2);
 			Engine.maxCC = 2;
 			Engine.maxCops = 2;
+			setCareerFinish(25);
 
 		}
 		else if (Engine.level == 5){
-			playerImage = BitmapFactory.decodeResource(res, R.drawable.gamebmw);
+			playerImage = BitmapFactory.decodeResource(res, R.drawable.bmw600);
 			playerHealth = 500;
 			handling = 4;
-			setSpeed(4);
 			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.35;
 			//spawn delay
@@ -117,17 +119,19 @@ public class Player{
 			setBreakingPower(4);
 			Engine.maxCC = 3;
 			Engine.maxCops = 2;
+			setCareerFinish(25);
 
 		} 
 		else if (Engine.level == 6){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.porsche600);
 			playerHealth = 400;
 			handling = 5;
-			setSpeed(5);
+			Engine.levelSpeedMult=.5;
 			setAcceleration(7);
 			setBreakingPower(6);
 			Engine.maxCC = 1;
 			Engine.maxCops = 4;
+			setCareerFinish(25);
 		}
 		else if (Engine.level == 7){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.stiplayer600); 
@@ -135,13 +139,14 @@ public class Player{
 			handling = 6;
 			
 			//top speed (how fast items/civilians move)
-			Engine.levelSpeedMult=.5;
+			Engine.levelSpeedMult=.6;
 			//spawn delay
 			Engine.spawnDelay=20;
 			setAcceleration(6);
 			setBreakingPower(9);
 			Engine.maxCC = 1;
 			Engine.maxCops = 4;
+			setCareerFinish(25);
 		}
 
 		Engine.updateDifficulty();
@@ -237,9 +242,9 @@ public class Player{
 	public static int getSpeed() {
 		return speed;
 	}
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
+	//public void setSpeed(int speed) {
+		//this.speed = speed;
+	//}
 	public static int getBreakingPower() {
 		return breakingPower;
 	}
@@ -256,6 +261,14 @@ public class Player{
 	public void damagePlayer(int damage) {
 		playerHealth= playerHealth-damage;
 		Log.i("Hurt player ", "Health is at: " + playerHealth);
+	}
+
+	public static int getCareerFinish() {
+		return careerFinish;
+	}
+
+	public static void setCareerFinish(int careerFinish) {
+		Player.careerFinish = careerFinish;
 	}
 
 }

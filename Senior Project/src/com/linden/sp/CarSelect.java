@@ -57,6 +57,7 @@ int difficulty;
 					// send which level and difficulty data to new activity
 					bundle.putInt("level", (carNumber+1));
 					bundle.putInt("difficulty", (difficulty));
+					bundle.putBoolean("survival", true);
 					intent.putExtras(bundle);
 					startActivity(intent);
 				}

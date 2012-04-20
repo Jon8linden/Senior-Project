@@ -2,6 +2,7 @@ package com.linden.sp.game;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -19,6 +20,8 @@ import android.view.WindowManager;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.linden.sp.Finish;
+
 
 public class Engine extends Activity implements SensorEventListener, OnTouchListener{
 
@@ -33,11 +36,12 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	final static int gameLoopSpeed = 20;
 	private int scoreDelay= 25;
 	private int currentScoreTime=0;
-	
+	double actualRunningTime;
 	
 	//start up game variables
 	static Boolean surfaceCreated = false;
 	private Boolean engineRunning = false;
+	
 	
 	static int totalRunTime = 0;
 	private int lastObstacleTime = 0;
@@ -50,9 +54,12 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	public static int level;
 	public static int selectedCar;
 	public static int difficulty;
+	public static boolean career = false;
+	public static boolean survival = false;
 
 	static double levelSpeedMult = 1;
 	static int score;
+	public static int carsHit;
 
 
 	//obstacle chance
@@ -79,10 +86,14 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	public static int yDirection;
 
 	
+
+	
 	
 	public Engine(){
 		super();
 		//set intial game variables
+		score=0;
+		carsHit=0;
 		
 	}
 	
@@ -121,7 +132,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		totalRunTime++;
 
 		// Calculate actual game running time in seconds
-		double actualRunningTime = (double)(totalRunTime * gameLoopSpeed) / 1000;
+		actualRunningTime = (double)(totalRunTime * gameLoopSpeed) / 1000;
 		
 		// Log every 5 seconds (real time)
 		if ((actualRunningTime % 5.0) == 0) {
@@ -161,6 +172,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
             		// Remove the item
             		car.remove();
             		numberOfCC--;
+            		carsHit++;
             		//update health
             		gameView.player.damagePlayer(currentCar.getDamage());
             		//checkHealth
@@ -189,7 +201,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			
 		
 	}
-	// moves existing civilian cars
+	// moves existing cop cars
 	synchronized(gameView.copElement){
 		for (Iterator<Cops> car = gameView.copElement.iterator(); car.hasNext();){
 
@@ -262,14 +274,15 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         Bundle bundle = getIntent().getExtras();
         //set to 0 so it does not effect survival mode 
         level = bundle.getInt("level",0);
-        difficulty = bundle.getInt("difficulty",1);
+        difficulty = bundle.getInt("difficulty",0);
+        
+        career = bundle.getBoolean("career");
+        survival = bundle.getBoolean("survival");
         
 		// Set to gameView
         gameView = new gameView(this);
         setContentView(gameView);
         Log.d("difficulty ", " "+ difficulty);
-
-       // boolean career = bundle.getBoolean("careerMode", true);
         
         //Log.d("Engine", "level " + level);
         
@@ -296,20 +309,21 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		// TODO Auto-generated method stub
 		//difficulty changes number of obstructions on the screen at once
 		if (difficulty == 1){
-			//maxCops = 0;
-			//maxCC=3;
+			maxCops = 0;
+			maxCC=3;
 
 		}
 		else if (difficulty == 2){
-			//maxCops = 2;
-			//maxCC=2;
+			maxCops = 2;
+			maxCC=2;
 
 		}
 		else if (difficulty == 3){
-			//maxCops = 3;
-			//maxCC=2;
+			maxCops = 4;
+			maxCC=1;
 
 		}
+		difficulty=0;
 		
 	}
 
@@ -380,7 +394,31 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		});
 	}
 
-
+	//check to see if win condition is met
+	private void checkWin(){
+		if (career){
+			//if (carsHit = Player.getCareerFinish()){
+				Intent intent = new Intent(Engine.this, Finish.class);
+				Bundle bundle = new Bundle();
+				
+				//fill bundle
+				bundle.putBoolean("win", true);
+				bundle.putInt("time", (int)actualRunningTime);
+				bundle.putInt("level", level+1);
+				
+				startActivity(intent);
+				
+				gameOver();
+			//}
+		}
+	}
+	//set values at end of game
+	private void gameOver(){
+		engineRunning = false;
+		gameOver = true;
+		
+	}
+	
 	public static void surfaceCreated() {
 		surfaceCreated = true;
 		

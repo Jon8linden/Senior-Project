@@ -34,8 +34,9 @@ public class Cops {
 	//Civilian car images
 	private final int[] copCars = {
 			R.drawable.towncop,
-			R.drawable.statepolice600,
-			R.drawable.undercovercop600
+			R.drawable.undercovercop600,
+			R.drawable.statepolice600
+			
 
 	};
 	
@@ -99,11 +100,14 @@ public class Cops {
 		copDrawable = copCars[randomImage];
 		
 		//check image and apply effects
-		if (randomImage == 0 || randomImage == 1 || randomImage == 3 || randomImage == 4 ){
-			damage=5;
+		if (randomImage == 0){
+			damage=10;
 		}
-		else if (randomImage == 5){
-			//cop car
+		else if (randomImage == 1){
+			damage = 20;
+		}
+		else if (randomImage == 2){
+			damage = 35;
 		}
 		
 		

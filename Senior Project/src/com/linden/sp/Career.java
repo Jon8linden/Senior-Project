@@ -42,6 +42,7 @@ public class Career extends Activity{
 	
 				// send which level data to new activity
 				bundle.putInt("level", (position+1));
+				bundle.putBoolean("career", true);
 				intent.putExtras(bundle);
 				startActivity(intent);
 				
