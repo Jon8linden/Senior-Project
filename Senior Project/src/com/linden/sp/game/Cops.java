@@ -33,7 +33,7 @@ public class Cops {
 	
 	//Civilian car images
 	private final int[] copCars = {
-			R.drawable.towncop,
+			R.drawable.towncop600,
 			R.drawable.undercovercop600,
 			R.drawable.statepolice600
 			
