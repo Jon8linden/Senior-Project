@@ -17,12 +17,12 @@ public class Player{
 	private static float xPlayerPosition;
 	private static float yPlayerPosition;
 	
-	static int playerHealth;
+	static int playerHealth=100;		//number set so instant loose does not occur when game is loading
 	private int handling;
 	private static int breakingPower;
 	private static int speed;
 	private static int acceleration;
-	private static int careerFinish;
+	private static int careerFinish=1; 	//number set so instant win does not occur when game is loading
 
 	public static int scoreMult=1;
 	
@@ -67,6 +67,8 @@ public class Player{
 			Engine.spawnDelay=100;
 			//finish condition
 			setCareerFinish(25);
+			//set amount of time
+			Engine.maxLevelTime = 360;
 		}
 		else if (Engine.level == 2){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.delsol600);
@@ -154,14 +156,12 @@ public class Player{
 	
 	//draw player on screen
 	public void doDraw(Canvas canvas){
-		//Log.d("Made it", "Player doDraw");
 		canvas.drawBitmap(playerImage,xPlayerPosition,yPlayerPosition,null);
 	}
 
 	//move player left and right
 	public void animation(long totalTime) {
-		//change speed based off of accelerometer gravity
-		//handling mod = .9
+		//change speed based off of accelerometer gravity and handling of car
 		xSpeed = (int) (Engine.gravity[1] * .22 * handling);
 		
 		//apply speed to xCordinates
@@ -242,9 +242,6 @@ public class Player{
 	public static int getSpeed() {
 		return speed;
 	}
-	//public void setSpeed(int speed) {
-		//this.speed = speed;
-	//}
 	public static int getBreakingPower() {
 		return breakingPower;
 	}

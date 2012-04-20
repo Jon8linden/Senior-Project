@@ -51,12 +51,14 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	private int numberOfCops = 0;
 	private int numberOfCC=0;
 	
+	//variables that are changed based on level and mode
 	public static int level;
 	public static int selectedCar;
 	public static int difficulty;
 	public static boolean career = false;
 	public static boolean survival = false;
-
+	public static int maxLevelTime=60; //set so an instant loose does not occur while game is loading (60 seconds)
+	
 	static double levelSpeedMult = 1;
 	static int score;
 	public static int carsHit;
@@ -88,6 +90,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 
 	
+
+	
 	
 	public Engine(){
 		super();
@@ -113,7 +117,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		
 		//score and check if win condition
 		incrementScore();
-
+		checkWin();
+		checkLoose();
 		
 		
 	}
@@ -283,11 +288,6 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         gameView = new gameView(this);
         setContentView(gameView);
         Log.d("difficulty ", " "+ difficulty);
-        
-        //Log.d("Engine", "level " + level);
-        
-        //Determines mode
-        //career mode
 
         //set up preferences 
         //preferences = PreferenceManager.getDefaultSharedPreferences(getBaseCon());
@@ -304,9 +304,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         gameView.setOnTouchListener(this);
 	    
 	}
-	
+	//sets the difficulty easy med hard
 	static void updateDifficulty() {
-		// TODO Auto-generated method stub
 		//difficulty changes number of obstructions on the screen at once
 		if (difficulty == 1){
 			maxCops = 0;
@@ -357,7 +356,6 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	}
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		totalRunTime=0;
 		surfaceCreated = false;
@@ -387,7 +385,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				}
 				}
 				
-				//if (gameOver){finish();}
+				if (gameOver){
+					//finish();
+				}
 			}
 			
 			
@@ -397,20 +397,45 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	//check to see if win condition is met
 	private void checkWin(){
 		if (career){
-			//if (carsHit = Player.getCareerFinish()){
+			//if player hits designated number of cars they win
+			if (carsHit == Player.getCareerFinish()){
 				Intent intent = new Intent(Engine.this, Finish.class);
 				Bundle bundle = new Bundle();
 				
 				//fill bundle
 				bundle.putBoolean("win", true);
 				bundle.putInt("time", (int)actualRunningTime);
+				bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
+				bundle.putInt("levelGoal",Player.getCareerFinish());
 				bundle.putInt("level", level+1);
 				
 				startActivity(intent);
 				
 				gameOver();
-			//}
+			}
 		}
+	}
+	//check if player lost the level
+	private void checkLoose(){
+		if (career){
+			//if player takes too long they loose
+			if (actualRunningTime>maxLevelTime){
+				Intent intent = new Intent(Engine.this, Finish.class);
+				Bundle bundle = new Bundle();
+				
+				//fill bundle
+				bundle.putBoolean("win", false);
+				bundle.putInt("time", (int)actualRunningTime);
+				bundle.putInt("carsHit", carsHit);
+				bundle.putInt("levelGoal",Player.getCareerFinish());
+				bundle.putInt("level", level+1);
+				
+				startActivity(intent);
+				
+				gameOver();
+			}
+		}
+			
 	}
 	//set values at end of game
 	private void gameOver(){
