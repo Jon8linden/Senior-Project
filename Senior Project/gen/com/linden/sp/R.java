@@ -54,14 +54,17 @@ public final class R {
         public static final int Health=0x7f070004;
         public static final int Special=0x7f07000a;
         public static final int Speed=0x7f070006;
-        public static final int btnAbout=0x7f07000f;
-        public static final int btnCareer=0x7f07000d;
-        public static final int btnEasy=0x7f070010;
-        public static final int btnHard=0x7f070012;
-        public static final int btnMedium=0x7f070011;
+        public static final int btnAbout=0x7f070017;
+        public static final int btnCareer=0x7f070015;
+        public static final int btnEasy=0x7f070018;
+        public static final int btnHard=0x7f07001a;
+        public static final int btnMedium=0x7f070019;
         public static final int btnOK=0x7f07000b;
-        public static final int btnSettings=0x7f07000e;
-        public static final int btnSurvival=0x7f07000c;
+        public static final int btnOk=0x7f070010;
+        public static final int btnQuit=0x7f070013;
+        public static final int btnRetry=0x7f070012;
+        public static final int btnSettings=0x7f070016;
+        public static final int btnSurvival=0x7f070014;
         public static final int carselect=0x7f070002;
         public static final int gridview=0x7f070000;
         public static final int lblHandling=0x7f070007;
@@ -69,14 +72,20 @@ public final class R {
         public static final int lblSpecial=0x7f070009;
         public static final int lblSpeed=0x7f070005;
         public static final int selectedCar=0x7f070001;
+        public static final int txtScoreNum=0x7f07000e;
+        public static final int txtScoreTitle=0x7f07000d;
+        public static final int txtfinishedTitle=0x7f07000c;
+        public static final int viewLost=0x7f070011;
+        public static final int viewWon=0x7f07000f;
     }
     public static final class layout {
         public static final int about=0x7f030000;
         public static final int career=0x7f030001;
         public static final int carselect=0x7f030002;
-        public static final int main=0x7f030003;
-        public static final int splash=0x7f030004;
-        public static final int survival=0x7f030005;
+        public static final int finish=0x7f030003;
+        public static final int main=0x7f030004;
+        public static final int splash=0x7f030005;
+        public static final int survival=0x7f030006;
     }
     public static final class string {
         public static final int SelectCar=0x7f060001;

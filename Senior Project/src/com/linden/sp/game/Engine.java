@@ -406,7 +406,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				bundle.putBoolean("win", true);
 				bundle.putInt("time", (int)actualRunningTime);
 				bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
-				bundle.putInt("levelGoal",Player.getCareerFinish());
+				bundle.putInt("levelGoalCars",Player.getCareerFinish());
 				bundle.putInt("level", level+1);
 				
 				startActivity(intent);
