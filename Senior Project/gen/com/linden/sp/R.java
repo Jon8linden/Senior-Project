@@ -61,8 +61,8 @@ public final class R {
         public static final int btnHard=0x7f08001d;
         public static final int btnHelp=0x7f080018;
         public static final int btnMedium=0x7f08001c;
+        public static final int btnNextLvl=0x7f080010;
         public static final int btnOK=0x7f08000b;
-        public static final int btnOk=0x7f080010;
         public static final int btnQuit=0x7f080013;
         public static final int btnRetry=0x7f080012;
         public static final int btnSettings=0x7f080019;

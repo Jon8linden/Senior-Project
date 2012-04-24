@@ -44,8 +44,8 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent">
 	    <Button 
-		    android:text="OK" 
-		    android:id="@+id/btnOk"
+		    android:text="Next Level" 
+		    android:id="@+id/btnNextLvl"
 		    android:layout_width="100dp"
 		    android:layout_height="wrap_content"
 		   	android:layout_alignParentBottom="true"
