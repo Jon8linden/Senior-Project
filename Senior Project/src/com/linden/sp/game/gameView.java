@@ -17,6 +17,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	
@@ -113,7 +114,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     	// Draw Buttons
    		canvas.drawBitmap(gasBitmap, gasButtonX, gasButtonY, null);
    		canvas.drawBitmap(breakBitmap, breakButtonX, breakButtonY, null);
-
+   		
 		// Draw obstructions
 		synchronized (obstacleElements) {
 			if (obstacleElements.size() > 0) {
@@ -133,7 +134,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
    		
 	}
 	
-	
+
 	public void surfaceCreated(SurfaceHolder holder){
 		//Log.d("Made it", "GameView surfaceCreated");
 		gameWidth = this.getWidth();

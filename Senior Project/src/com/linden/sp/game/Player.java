@@ -66,9 +66,9 @@ public class Player{
 			//spawn delay must be changed due to speed of cars
 			Engine.spawnDelay=100;
 			//finish condition
-			setCareerFinish(5);
+			setCareerFinish(25);
 			//set amount of time
-			Engine.maxLevelTime = 360;
+			Engine.maxLevelTime = 10;
 		}
 		else if (Engine.level == 2){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.delsol600);
@@ -152,6 +152,7 @@ public class Player{
 		}
 
 		Engine.updateDifficulty();
+
 	}
 	
 	//draw player on screen

@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -129,7 +130,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		incrementScore();
 		checkWin();
 		checkLoose();
-		
+
 		
 	}
 	
@@ -284,6 +285,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	    //keep phone from sleeping
 	    this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
+
 	    
 	    //set settings
 		preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -304,6 +306,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         setContentView(gameView);
         Log.d("difficulty ", " "+ difficulty);
         
+
         
 	    //Accelerometer Sensor
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
@@ -320,7 +323,21 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         /*Greg Kuehn
 		http://www.primaryelements.com/
          */
+        
+   		//show toast
+   		toast();
 	    
+	}
+
+	private void toast() {
+
+		if (Engine.career){
+			Toast.makeText(getBaseContext(), "Hit " + Player.getCareerFinish() + " within "+ Engine.maxLevelTime + " seconds", Toast.LENGTH_SHORT).show();
+		}
+		else{
+			Toast.makeText(getBaseContext(), "Last as long as you can", Toast.LENGTH_SHORT).show();
+		}
+		
 	}
 	//sets the difficulty easy med hard
 	static void updateDifficulty() {
@@ -395,6 +412,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	protected void onStart() {
 		Log.d("Made it", "Engine onStart" + gameLoopSpeed);
 		super.onStart();
+		
+
 		//create thread
 		
 		engineThread = new Thread(new Runnable(){
@@ -449,7 +468,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	private void checkLoose(){
 		if (career){
 			//if player takes too long they loose
-			if (actualRunningTime>maxLevelTime){
+			if (actualRunningTime>maxLevelTime || Player.playerHealth<0){
 				Intent intent = new Intent(Engine.this, Finish.class);
 				Bundle bundle = new Bundle();
 				
@@ -460,6 +479,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				bundle.putInt("levelGoal",Player.getCareerFinish());
 				bundle.putInt("level", level+1);
 				
+				intent.putExtras(bundle);
 				startActivity(intent);
 				
 				gameOver();
@@ -538,8 +558,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					}
 					//pause button
 					else{
-						//onPause();
-						carsHit=+5;
+						onPause();
+						
 					}
 			}
 			else if (event.getAction() == android.view.MotionEvent.ACTION_UP){
