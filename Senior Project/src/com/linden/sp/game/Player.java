@@ -66,7 +66,7 @@ public class Player{
 			//spawn delay must be changed due to speed of cars
 			Engine.spawnDelay=100;
 			//finish condition
-			setCareerFinish(25);
+			setCareerFinish(5);
 			//set amount of time
 			Engine.maxLevelTime = 360;
 		}

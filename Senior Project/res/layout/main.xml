@@ -20,6 +20,13 @@
 	</Button>
 	
 	<Button
+		android:text="Instructions" 
+		android:id="@+id/btnHelp" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content">
+	</Button>
+	
+	<Button
 		android:text="Settings" 
 		android:id="@+id/btnSettings" 
 		android:layout_width="wrap_content" 

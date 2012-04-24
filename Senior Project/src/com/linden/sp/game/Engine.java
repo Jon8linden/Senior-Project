@@ -3,10 +3,12 @@ package com.linden.sp.game;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -30,7 +32,12 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 	//threads
 	Thread engineThread;
-		//add music thread
+	
+	//music thread
+	Thread musicThread;
+	
+	// Music media player
+	MediaPlayer musicPlayer;
 	
 	//game looping speed
 	final static int gameLoopSpeed = 20;
@@ -87,9 +94,12 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 	public static int yDirection;
 
-	
+	//settings
+	SharedPreferences preferences;
+	boolean musicEnabled;
+	boolean itemsEnabled;
 
-	
+
 
 	
 	
@@ -275,6 +285,11 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	    this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
 	    
+	    //set settings
+		preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		musicEnabled = preferences.getBoolean("music", true);
+		itemsEnabled = preferences.getBoolean("items", true);
+	    
         //get data from bundle 
         Bundle bundle = getIntent().getExtras();
         //set to 0 so it does not effect survival mode 
@@ -302,6 +317,12 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         
         //sets where the listener is for touch (gameView)
         gameView.setOnTouchListener(this);
+        
+        musicPlayer = MediaPlayer.create(this, com.linden.sp.R.raw.gamemusic);
+        musicPlayer.setLooping(true);
+        /*Greg Kuehn
+		http://www.primaryelements.com/
+         */
 	    
 	}
 	//sets the difficulty easy med hard
@@ -340,6 +361,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		super.onPause();
 		mSensorManager.unregisterListener(this);
 		engineRunning = false;
+		
+        // Pause the music
+        musicPlayer.pause();
 	}
 
 	@Override
@@ -353,6 +377,11 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		//resume game and start engine thread
 		engineRunning = true;
 		engineThread.start();
+        
+		// Play the music
+        if (musicEnabled) {
+        	musicPlayer.start();
+        }
 	}
 	@Override
 	protected void onDestroy() {
@@ -360,6 +389,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		totalRunTime=0;
 		surfaceCreated = false;
 		//stop music
+		// Stop the music
+		musicPlayer.stop();
 	}
 
 	//start engine
@@ -403,12 +434,13 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				Bundle bundle = new Bundle();
 				
 				//fill bundle
-				bundle.putBoolean("win", true);
+				bundle.putBoolean("won", true);
+				/*
 				bundle.putInt("time", (int)actualRunningTime);
 				bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
 				bundle.putInt("levelGoalCars",Player.getCareerFinish());
 				bundle.putInt("level", level+1);
-				
+				*/
 				startActivity(intent);
 				
 				gameOver();
@@ -424,7 +456,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				Bundle bundle = new Bundle();
 				
 				//fill bundle
-				bundle.putBoolean("win", false);
+				bundle.putBoolean("won", false);
 				bundle.putInt("time", (int)actualRunningTime);
 				bundle.putInt("carsHit", carsHit);
 				bundle.putInt("levelGoal",Player.getCareerFinish());
@@ -505,6 +537,11 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 						yDirection= yDirection + Player.getBreakingPower();
 
 
+					}
+					//pause button
+					else{
+						//onPause();
+						carsHit=+5;
 					}
 			}
 			else if (event.getAction() == android.view.MotionEvent.ACTION_UP){

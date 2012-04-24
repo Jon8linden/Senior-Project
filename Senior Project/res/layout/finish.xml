@@ -73,5 +73,26 @@
 		    android:layout_alignParentRight="true">
 	    </Button>
     </RelativeLayout>
+    	<RelativeLayout
+		android:id="@+id/viewSurvival" 
+		android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent">
+	    <Button 
+		    android:text="Again?" 
+		    android:id="@+id/btnAgain" 
+		    android:layout_width="100dp" 
+		    android:layout_height="wrap_content"
+		   	android:layout_alignParentBottom="true">
+	    </Button>
+	    <Button 
+		    android:text="Quit" 
+		    android:id="@+id/btnQuit"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentRight="true">
+	    </Button>
+    </RelativeLayout>
     
 </RelativeLayout>
