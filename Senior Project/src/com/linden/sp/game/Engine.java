@@ -303,9 +303,6 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         gameView = new gameView(this);
         setContentView(gameView);
         Log.d("difficulty ", " "+ difficulty);
-
-        //set up preferences 
-        //preferences = PreferenceManager.getDefaultSharedPreferences(getBaseCon());
         
         
 	    //Accelerometer Sensor
@@ -362,7 +359,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		mSensorManager.unregisterListener(this);
 		engineRunning = false;
 		
-        // Pause the music
+        //Pause the music
         musicPlayer.pause();
 	}
 
@@ -388,8 +385,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		super.onDestroy();
 		totalRunTime=0;
 		surfaceCreated = false;
+		
 		//stop music
-		// Stop the music
 		musicPlayer.stop();
 	}
 
@@ -417,7 +414,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				}
 				
 				if (gameOver){
-					//finish();
+					finish();
 				}
 			}
 			
