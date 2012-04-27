@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.Random;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import com.linden.sp.Finish;
 
@@ -94,6 +97,10 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	public static float[] linear_acceleration = new float[3];
 	
 	public static int yDirection;
+	public static boolean valuesSetFlag = false;
+
+	public static boolean careerDestroy;
+	public static boolean careerSurvive;
 
 	//settings
 	SharedPreferences preferences;
@@ -118,19 +125,18 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			if(surfaceCreated){
 				obstacle();
 				cop();
-
 			}
 			totalRunTime();
 		}
 		//check to see what to start
 		//if music is off dont start
 		//items
-		
+
 		//score and check if win condition
 		incrementScore();
 		checkWin();
 		checkLoose();
-
+		
 		
 	}
 	
@@ -285,7 +291,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	    //keep phone from sleeping
 	    this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
-
+	    //set player health to 1 to avoid instant loose when game is loading player attributes
+	    Player.playerHealth=1;
+	    valuesSetFlag = false;
 	    
 	    //set settings
 		preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -324,19 +332,24 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		http://www.primaryelements.com/
          */
         
-   		//show toast
-   		toast();
-	    
 	}
-
+	
+	//prints out a instruction toast if variables have been set
 	private void toast() {
 
-		if (Engine.career){
-			Toast.makeText(getBaseContext(), "Hit " + Player.getCareerFinish() + " within "+ Engine.maxLevelTime + " seconds", Toast.LENGTH_SHORT).show();
+		if (valuesSetFlag){
+			Log.d("toast ", "one if in");
+			if (Engine.careerDestroy){
+				Toast.makeText(Engine.this, "Hit " + Player.getCareerFinish() + " within "+ Engine.maxLevelTime + " seconds", Toast.LENGTH_SHORT).show();
+			}
+			else if (Engine.careerSurvive){
+				Toast.makeText(Engine.this, "Survive for "+ Engine.maxLevelTime + " seconds", Toast.LENGTH_SHORT).show();
+			}
+			else{
+				Toast.makeText(getBaseContext(), "Last as long as you can", Toast.LENGTH_SHORT).show();
+			}
 		}
-		else{
-			Toast.makeText(getBaseContext(), "Last as long as you can", Toast.LENGTH_SHORT).show();
-		}
+		valuesSetFlag= false;
 		
 	}
 	//sets the difficulty easy med hard
@@ -368,8 +381,6 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		
 	}
 
-	
-
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -379,7 +390,6 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         //Pause the music
         musicPlayer.pause();
 	}
-
 	@Override
 	protected void onResume() {
 		Log.d("Made it", "Engine onResume");
@@ -396,6 +406,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
         if (musicEnabled) {
         	musicPlayer.start();
         }
+        
 	}
 	@Override
 	protected void onDestroy() {
@@ -443,6 +454,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 
 	//check to see if win condition is met
 	private void checkWin(){
+
 		if (career){
 			//if player hits designated number of cars they win
 			if (carsHit == Player.getCareerFinish()){
@@ -462,13 +474,30 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				
 				gameOver();
 			}
+			//lasted a certain amount of time
+			if (maxLevelTime == actualRunningTime){
+				Intent intent = new Intent(Engine.this, Finish.class);
+				Bundle bundle = new Bundle();
+				
+				//fill bundle
+				bundle.putBoolean("won", true);
+				bundle.putBoolean("careerTime", true);
+				bundle.putInt("time", (int)actualRunningTime);
+				bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
+				bundle.putInt("level", level+1);
+				
+				intent.putExtras(bundle);
+				startActivity(intent);
+				
+				gameOver();
+			}
 		}
 	}
 	//check if player lost the level
 	private void checkLoose(){
 		if (career){
 			//if player takes too long they loose
-			if (actualRunningTime>maxLevelTime || Player.playerHealth<0){
+			if ((int)actualRunningTime>maxLevelTime || Player.playerHealth<=0){
 				Intent intent = new Intent(Engine.this, Finish.class);
 				Bundle bundle = new Bundle();
 				
@@ -485,6 +514,23 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				gameOver();
 			}
 		}
+			//survival
+		else{
+				if (Player.playerHealth<=0){
+					Intent intent = new Intent(Engine.this, Finish.class);
+					Bundle bundle = new Bundle();
+					
+					//fill bundle
+					bundle.putBoolean("won", false);
+					bundle.putInt("time", (int)actualRunningTime);
+					bundle.putInt("carsHit", carsHit);
+					bundle.putInt("score", score);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					
+					gameOver();
+				}
+			}
 			
 	}
 	//set values at end of game
@@ -504,7 +550,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	}
 	//Accelerometer changes left to right controls
 	public void onSensorChanged(SensorEvent event) {
- 
+		toast();//dont move
+		
 		final float alpha = (float) 0.8;
 		
         // Get display rotation
@@ -558,7 +605,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					}
 					//pause button
 					else{
-						onPause();
+						Player.playerHealth = 0;
 						
 					}
 			}

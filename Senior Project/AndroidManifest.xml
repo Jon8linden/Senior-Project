@@ -3,7 +3,8 @@
       package="com.linden.sp"
       android:versionCode="1"
       android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="8" 
+        android:targetSdkVersion = "15"/>
 
     <application 
     	android:icon="@drawable/icon" 
@@ -24,7 +25,7 @@
                   android:label="@string/app_name"
                   android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.CLEARSCREEN" />
+                <action android:name="com.linden.sp.CLEARSCREEN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -34,7 +35,7 @@
                   android:label="@string/app_name"
                   android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.CAREER" />
+                <action android:name="com.linden.sp.CAREER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -44,7 +45,7 @@
                   android:label="@string/app_name"
                   android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.SURVIVAL" />
+                <action android:name="com.linden.sp.SURVIVAL" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -54,7 +55,7 @@
                   android:label="@string/app_name"
                   android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.CARSELECT" />
+                <action android:name="com.linden.sp.CARSELECT" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -64,7 +65,7 @@
                   android:label="@string/app_name"
                   android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.HELP" />
+                <action android:name="com.linden.sp.HELP" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>  
@@ -74,7 +75,7 @@
                   android:label="@string/app_name"
                   android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.SETTINGS" />
+                <action android:name="com.linden.sp.SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -85,7 +86,7 @@
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.Dialog">
             <intent-filter>
-                <action android:name="android.intent.action.ABOUT" />
+                <action android:name="com.linden.sp.ABOUT" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -94,7 +95,7 @@
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.Dialog">
             <intent-filter>
-                <action android:name="android.intent.action.FINISH" />
+                <action android:name="com.linden.sp.FINISH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -103,7 +104,7 @@
                   android:label="@string/app_name"
                   android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.game.Engine" />
+                <action android:name="com.linden.sp.game.Engine" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

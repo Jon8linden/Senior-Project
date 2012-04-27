@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class Finish extends Activity{
 	
 	boolean win;
+	boolean careerTime;
 	int score;
 	int carsHit;
 	int level;
@@ -36,10 +37,13 @@ public class Finish extends Activity{
 		//get data from bundle
 		Bundle bundle = getIntent().getExtras();
 		win = bundle.getBoolean("won", false);
+		careerTime = bundle.getBoolean("careerTime", false);
 		timeTaken = bundle.getInt("time", 0);
 		carsHit=bundle.getInt("carsHit", 0);
 		LevelGoalCars = bundle.getInt("levelGoalCars",0);
 		level = bundle.getInt("level",0);
+		score = bundle.getInt("score",0);
+		
 		
 		View viewWon = (View) findViewById (R.id.viewWon);
     	View viewLost = (View) findViewById (R.id.viewLost);
@@ -48,12 +52,16 @@ public class Finish extends Activity{
     	
     	TextView scoreText = (TextView) findViewById (R.id.txtScoreNum);
 		
+    	scoreText.setText(""+score);
     	
     	//survival view
 		if(survival){
 			viewSurvial.setVisibility(View.VISIBLE);
 			viewLost.setVisibility(View.GONE);
 			viewWon.setVisibility(View.GONE);
+			
+			titleText.setText("You Died!");
+			
     	}
 		//Career Win
 			

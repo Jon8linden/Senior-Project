@@ -157,7 +157,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
             viewThread.start();
         }
         
-        // notify engine that the surface has been created
+        //notify engine that the surface has been created
         Engine.surfaceCreated();
 	}
 

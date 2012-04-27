@@ -31,7 +31,7 @@ public class Survival extends Activity{
 			
 			public void onClick(View v) {
 				//startActivity(new Intent("android.intent.action.CARSELECT"));
-				Intent intent = new Intent("android.intent.action.CARSELECT");
+				Intent intent = new Intent("com.linden.sp.CARSELECT");
 				Bundle bundle = new Bundle();
 				
 				bundle.putInt("survival", 1);
@@ -47,7 +47,7 @@ public class Survival extends Activity{
 		btnMedium.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent intent = new Intent("android.intent.action.CARSELECT");
+				Intent intent = new Intent("com.linden.sp.CARSELECT");
 				Bundle bundle = new Bundle();
 				
 				bundle.putInt("survival", 2);
@@ -61,7 +61,7 @@ public class Survival extends Activity{
 		btnHard.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent intent = new Intent("android.intent.action.CARSELECT");
+				Intent intent = new Intent("com.linden.sp.CARSELECT");
 				Bundle bundle = new Bundle();
 				
 				bundle.putInt("survival", 3);

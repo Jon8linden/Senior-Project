@@ -2,11 +2,13 @@ package com.linden.sp.game;
 
 import com.linden.sp.R;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Player{
 
@@ -66,6 +68,7 @@ public class Player{
 			//spawn delay must be changed due to speed of cars
 			Engine.spawnDelay=100;
 			//finish condition
+			Engine.careerDestroy = true;
 			setCareerFinish(25);
 			//set amount of time
 			Engine.maxLevelTime = 10;
@@ -80,7 +83,11 @@ public class Player{
 			Engine.maxCC = 3;
 			Engine.maxCops = 0;
 			Engine.spawnDelay=100;
-			setCareerFinish(25);
+			//Dont hit cars Cant ever hit -1 cars
+			Engine.careerSurvive = true;
+			setCareerFinish(-1);
+			//set survival time
+			Engine.maxLevelTime = 45;
 		}
 		else if (Engine.level == 3){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep600);
@@ -98,9 +105,7 @@ public class Player{
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.blacktruck);
 			playerHealth = 600;
 			handling = 2;
-			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.25;
-			//spawn chance
 			setAcceleration(4);
 			setBreakingPower(2);
 			Engine.maxCC = 2;
@@ -112,9 +117,7 @@ public class Player{
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.bmw600);
 			playerHealth = 500;
 			handling = 4;
-			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.35;
-			//spawn delay
 			Engine.spawnDelay=40;
 			
 			setAcceleration(5);
@@ -139,10 +142,7 @@ public class Player{
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.stiplayer600); 
 			playerHealth = 500;
 			handling = 6;
-			
-			//top speed (how fast items/civilians move)
 			Engine.levelSpeedMult=.6;
-			//spawn delay
 			Engine.spawnDelay=20;
 			setAcceleration(6);
 			setBreakingPower(9);
@@ -152,7 +152,7 @@ public class Player{
 		}
 
 		Engine.updateDifficulty();
-
+		Engine.valuesSetFlag = true;
 	}
 	
 	//draw player on screen
@@ -178,7 +178,7 @@ public class Player{
 		
 		
 	}
-	
+
 	//check bounds of the screen
 	private void checkBounds(){
 		//left and right

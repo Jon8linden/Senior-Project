@@ -32,7 +32,7 @@ public class MainMenu extends Activity{
 		btnCareer.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				startActivity(new Intent("android.intent.action.CAREER"));
+				startActivity(new Intent("com.linden.sp.CAREER"));
 			}
 		});
 
@@ -41,7 +41,7 @@ public class MainMenu extends Activity{
 		btnSurvival.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				startActivity(new Intent("android.intent.action.SURVIVAL"));
+				startActivity(new Intent("com.linden.sp.SURVIVAL"));
 			}
 		});
 		
@@ -59,7 +59,7 @@ public class MainMenu extends Activity{
 		btnSettings.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				startActivity(new Intent("android.intent.action.SETTINGS"));
+				startActivity(new Intent("com.linden.sp.SETTINGS"));
 			}
 		});
 		
@@ -68,7 +68,7 @@ public class MainMenu extends Activity{
 		btnAbout.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				startActivity(new Intent("android.intent.action.ABOUT"));
+				startActivity(new Intent("com.linden.sp.ABOUT"));
 			}
 		});
 		
