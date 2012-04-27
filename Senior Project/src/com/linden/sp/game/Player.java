@@ -70,8 +70,6 @@ public class Player{
 			//finish condition
 			Engine.careerDestroy = true;
 			setCareerFinish(25);
-			//set amount of time
-			Engine.maxLevelTime = 10;
 		}
 		else if (Engine.level == 2){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.delsol600);
@@ -83,11 +81,12 @@ public class Player{
 			Engine.maxCC = 3;
 			Engine.maxCops = 0;
 			Engine.spawnDelay=100;
+			
 			//Dont hit cars Cant ever hit -1 cars
 			Engine.careerSurvive = true;
 			setCareerFinish(-1);
 			//set survival time
-			Engine.maxLevelTime = 45;
+			Engine.maxLevelTime = 30;
 		}
 		else if (Engine.level == 3){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep600);
@@ -96,10 +95,14 @@ public class Player{
 			Engine.levelSpeedMult= .25;
 			setAcceleration(3);
 			setBreakingPower(2);
-			Engine.maxCC = 2;
-			Engine.maxCops = 1;
-			Engine.spawnDelay=100;
-			setCareerFinish(25);
+			Engine.maxCC = 0;
+			Engine.maxCops = 3;
+			Engine.spawnDelay=50;
+			//Dont hit cars Cant ever hit -1 cars
+			Engine.careerSurvive = true;
+			setCareerFinish(-1);
+			//set survival time
+			Engine.maxLevelTime = 45;
 		}
 		else if (Engine.level == 4){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.blacktruck);
@@ -108,23 +111,35 @@ public class Player{
 			Engine.levelSpeedMult=.25;
 			setAcceleration(4);
 			setBreakingPower(2);
-			Engine.maxCC = 2;
+			Engine.maxCC = 1;
 			Engine.maxCops = 2;
-			setCareerFinish(25);
+			Engine.spawnDelay=50;
+			
+			//finish condition
+			Engine.careerDestroy = true;
+			setCareerFinish(60);
+			//set amount of time
+
 
 		}
 		else if (Engine.level == 5){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.bmw600);
-			playerHealth = 500;
+			playerHealth = 200;
 			handling = 4;
 			Engine.levelSpeedMult=.35;
 			Engine.spawnDelay=40;
 			
 			setAcceleration(5);
 			setBreakingPower(4);
-			Engine.maxCC = 3;
+			Engine.maxCC = 1;
 			Engine.maxCops = 2;
 			setCareerFinish(25);
+			Engine.spawnDelay=30;
+			//Dont hit cars Cant ever hit -1 cars
+			Engine.careerSurvive = true;
+			setCareerFinish(-1);
+			//set survival time
+			Engine.maxLevelTime = 200;
 
 		} 
 		else if (Engine.level == 6){

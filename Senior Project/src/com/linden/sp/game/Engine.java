@@ -340,7 +340,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		if (valuesSetFlag){
 			Log.d("toast ", "one if in");
 			if (Engine.careerDestroy){
-				Toast.makeText(Engine.this, "Hit " + Player.getCareerFinish() + " within "+ Engine.maxLevelTime + " seconds", Toast.LENGTH_SHORT).show();
+				Toast.makeText(Engine.this, "Hit " + Player.getCareerFinish() + " civilian cars", Toast.LENGTH_SHORT).show();
 			}
 			else if (Engine.careerSurvive){
 				Toast.makeText(Engine.this, "Survive for "+ Engine.maxLevelTime + " seconds", Toast.LENGTH_SHORT).show();
@@ -414,6 +414,11 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		totalRunTime=0;
 		surfaceCreated = false;
 		
+		//reset values
+		careerDestroy=false;
+		careerSurvive = false;
+		valuesSetFlag= false;
+		
 		//stop music
 		musicPlayer.stop();
 	}
@@ -457,47 +462,51 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 
 		if (career){
 			//if player hits designated number of cars they win
-			if (carsHit == Player.getCareerFinish()){
-				Intent intent = new Intent(Engine.this, Finish.class);
-				Bundle bundle = new Bundle();
-				
-				//fill bundle
-				bundle.putBoolean("won", true);
-				
-				bundle.putInt("time", (int)actualRunningTime);
-				bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
-				bundle.putInt("levelGoalCars",Player.getCareerFinish());
-				bundle.putInt("level", level+1);
-				
-				intent.putExtras(bundle);
-				startActivity(intent);
-				
-				gameOver();
+			if (careerDestroy){
+				if (carsHit == Player.getCareerFinish()){
+					Intent intent = new Intent(Engine.this, Finish.class);
+					Bundle bundle = new Bundle();
+					
+					//fill bundle
+					bundle.putBoolean("won", true);
+					
+					bundle.putInt("time", (int)actualRunningTime);
+					bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
+					bundle.putInt("levelGoalCars",Player.getCareerFinish());
+					bundle.putInt("level", level+1);
+					
+					intent.putExtras(bundle);
+					startActivity(intent);
+					
+					gameOver();
+				}
 			}
 			//lasted a certain amount of time
-			if (maxLevelTime == actualRunningTime){
-				Intent intent = new Intent(Engine.this, Finish.class);
-				Bundle bundle = new Bundle();
-				
-				//fill bundle
-				bundle.putBoolean("won", true);
-				bundle.putBoolean("careerTime", true);
-				bundle.putInt("time", (int)actualRunningTime);
-				bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
-				bundle.putInt("level", level+1);
-				
-				intent.putExtras(bundle);
-				startActivity(intent);
-				
-				gameOver();
+			if (careerSurvive){
+				if (maxLevelTime == actualRunningTime){
+					Intent intent = new Intent(Engine.this, Finish.class);
+					Bundle bundle = new Bundle();
+					
+					//fill bundle
+					bundle.putBoolean("won", true);
+					bundle.putBoolean("careerTime", true);
+					bundle.putInt("time", (int)actualRunningTime);
+					bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
+					bundle.putInt("level", level+1);
+					
+					intent.putExtras(bundle);
+					startActivity(intent);
+					
+					gameOver();
+				}
 			}
 		}
 	}
 	//check if player lost the level
 	private void checkLoose(){
 		if (career){
-			//if player takes too long they loose
-			if ((int)actualRunningTime>maxLevelTime || Player.playerHealth<=0){
+			
+			if (Player.playerHealth<=0){
 				Intent intent = new Intent(Engine.this, Finish.class);
 				Bundle bundle = new Bundle();
 				
