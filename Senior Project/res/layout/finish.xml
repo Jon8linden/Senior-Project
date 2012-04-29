@@ -38,6 +38,8 @@
 		    android:text="0">
 		</TextView>
     </LinearLayout>
+    
+    <!-- Won -->
 	<RelativeLayout
 		android:id="@+id/viewWon" 
 		android:orientation="horizontal"
@@ -52,6 +54,8 @@
 		   	android:layout_centerHorizontal="true">
 	    </Button>
     </RelativeLayout>
+    
+	<!-- Lost -->
 	<RelativeLayout
 		android:id="@+id/viewLost" 
 		android:orientation="horizontal"
@@ -73,7 +77,9 @@
 		    android:layout_alignParentRight="true">
 	    </Button>
     </RelativeLayout>
-    	<RelativeLayout
+    
+	<!-- Survival -->
+    <RelativeLayout
 		android:id="@+id/viewSurvival" 
 		android:orientation="horizontal"
 	    android:layout_width="fill_parent"

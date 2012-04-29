@@ -67,7 +67,7 @@ public class Player{
 			Engine.maxCops = 0;
 			//spawn delay must be changed due to speed of cars
 			Engine.spawnDelay=100;
-			//finish condition
+			//finish condition destroy cars and how many
 			Engine.careerDestroy = true;
 			setCareerFinish(25);
 		}
@@ -152,6 +152,10 @@ public class Player{
 			Engine.maxCC = 1;
 			Engine.maxCops = 4;
 			setCareerFinish(25);
+			
+			//finish condition
+			Engine.careerDestroy = true;
+			setCareerFinish(60);
 		}
 		else if (Engine.level == 7){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.stiplayer600); 
@@ -164,9 +168,16 @@ public class Player{
 			Engine.maxCC = 1;
 			Engine.maxCops = 4;
 			setCareerFinish(25);
+			//Dont hit cars Cant ever hit -1 cars
+			Engine.careerSurvive = true;
+			setCareerFinish(-1);
+			//set survival time
+			Engine.maxLevelTime = 360;
 		}
-
+		//update difficulty if survival mode is selected
 		Engine.updateDifficulty();
+		
+		//flag for toast
 		Engine.valuesSetFlag = true;
 	}
 	

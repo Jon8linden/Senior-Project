@@ -21,7 +21,8 @@ public class Finish extends Activity{
 	int LevelGoalCars;
 	int timeTaken;
 	int levelGoalTime;
-	boolean survival;
+	int difficulty;
+	//boolean survival;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class Finish extends Activity{
 		LevelGoalCars = bundle.getInt("levelGoalCars",0);
 		level = bundle.getInt("level",0);
 		score = bundle.getInt("score",0);
-		
+		difficulty = bundle.getInt("difficulty", 0);
 		
 		View viewWon = (View) findViewById (R.id.viewWon);
     	View viewLost = (View) findViewById (R.id.viewLost);
@@ -55,7 +56,7 @@ public class Finish extends Activity{
     	scoreText.setText(""+score);
     	
     	//survival view
-		if(survival){
+		if(difficulty>0){
 			viewSurvial.setVisibility(View.VISIBLE);
 			viewLost.setVisibility(View.GONE);
 			viewWon.setVisibility(View.GONE);
@@ -114,7 +115,10 @@ public class Finish extends Activity{
 	        	// Create new bundle
 	            Bundle bundle = new Bundle();
 	            
-	            // Add the level data to the bundle and add the bundle to the intent
+	            // add data
+	            bundle.putInt("level", level);
+	            bundle.putBoolean("survival", true);
+	            bundle.putInt("difficulty", difficulty);
 	            intent.putExtras(bundle);
 	            
 	            // Start the actual activity
@@ -137,7 +141,8 @@ public class Finish extends Activity{
 	            Bundle bundle = new Bundle();
 	            
 	            // Add the level data to the bundle and add the bundle to the intent
-	    		bundle.putInt("level", level);
+	    		bundle.putInt("level", level-1);
+	    		bundle.putBoolean("career", true);
 	            intent.putExtras(bundle);
 	            
 	            // Start the actual activity

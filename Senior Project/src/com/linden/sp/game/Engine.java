@@ -116,7 +116,6 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		//set intial game variables
 		score=0;
 		carsHit=0;
-		
 	}
 	
 	public void runGame(){
@@ -352,25 +351,30 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		valuesSetFlag= false;
 		
 	}
+	
 	//sets the difficulty easy med hard
 	static void updateDifficulty() {
 		//difficulty changes number of obstructions on the screen at once
 		if (difficulty == 1){
 			maxCops = 0;
 			maxCC=3;
-
+			careerDestroy = false;
+			careerSurvive = false;
 		}
 		else if (difficulty == 2){
 			maxCops = 2;
 			maxCC=2;
-
+			careerDestroy = false;
+			careerSurvive = false;
 		}
 		else if (difficulty == 3){
 			maxCops = 4;
 			maxCC=1;
+			careerDestroy = false;
+			careerSurvive = false;
 
 		}
-		difficulty=0;
+		//difficulty=0;
 		
 	}
 
@@ -534,6 +538,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					bundle.putInt("time", (int)actualRunningTime);
 					bundle.putInt("carsHit", carsHit);
 					bundle.putInt("score", score);
+					bundle.putInt("difficulty", difficulty);
 					intent.putExtras(bundle);
 					startActivity(intent);
 					
