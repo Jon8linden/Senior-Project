@@ -125,6 +125,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			if(surfaceCreated){
 				obstacle();
 				cop();
+				item();
 			}
 			totalRunTime();
 		}
@@ -263,8 +264,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		if (iRandom == (iChance/7)){
 			// place obstacle on the screen if it has not produced an obstacle within the spawn time
 			if ((totalRunTime - lastItemTime) > itemSpawnDelay){
-				synchronized (gameView.obstacleElements){
-					gameView.obstacleElements.add(new Civilian(getResources()));
+				synchronized (gameView.itemElement){
+					gameView.itemElement.add(new Item(getResources()));
 					//set the time of the last obstacle
 					lastItemTime = totalRunTime;
 					Log.i("Item made", " : " + totalRunTime);

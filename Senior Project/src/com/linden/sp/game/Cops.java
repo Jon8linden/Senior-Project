@@ -31,7 +31,7 @@ public class Cops {
 	
 	static int laneWidth;
 	
-	//Civilian car images
+	//cop car images
 	private final int[] copCars = {
 			R.drawable.towncop600,
 			R.drawable.undercovercop600,

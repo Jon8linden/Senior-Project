@@ -87,11 +87,11 @@ public class Item {
 			itemDrawable = items[randomImage];
 			
 			//check image and apply effects
-			if (randomImage == 0 || randomImage == 1 || randomImage == 3 || randomImage == 4 ){
-				damage=5;
+			if (randomImage == 0){
+				damage=-25;
 			}
 			else if (randomImage == 5){
-				//cop car
+				
 			}
 			
 			

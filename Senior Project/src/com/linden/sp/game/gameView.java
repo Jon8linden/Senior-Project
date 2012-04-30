@@ -44,6 +44,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	
 	public ArrayList<Civilian> obstacleElements = new ArrayList<Civilian>();
 	public ArrayList<Cops> copElement = new ArrayList<Cops>();
+	public ArrayList<Item> itemElement = new ArrayList<Item>();
 	public Player player;
 	
 
@@ -131,11 +132,20 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	            }
 			}
         }
-		
+		// Draw Cops
 		synchronized (copElement) {
 			if (copElement.size() > 0) {
 	            for (Iterator<Cops> copIt = copElement.iterator(); copIt.hasNext();) {
 	            	copIt.next().draw(canvas);
+	            }
+			}
+        }
+		
+		// Draw Items
+		synchronized (itemElement) {
+			if (itemElement.size() > 0) {
+	            for (Iterator<Item> it = itemElement.iterator(); it.hasNext();) {
+	            	it.next().draw(canvas);
 	            }
 			}
         }
@@ -196,10 +206,19 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
     		}
     	}
     	
-		// Move the civilians down
+		// Move the Cops down
     	synchronized (copElement) {
     		if (copElement.size() > 0) {
 	            for (Iterator<Cops> it = copElement.iterator(); it.hasNext();) {
+	            	it.next().animate(totalTime);
+	            }
+    		}
+    	}
+    	
+		// Move the items down
+    	synchronized (itemElement) {
+    		if (itemElement.size() > 0) {
+	            for (Iterator<Item> it = itemElement.iterator(); it.hasNext();) {
 	            	it.next().animate(totalTime);
 	            }
     		}
