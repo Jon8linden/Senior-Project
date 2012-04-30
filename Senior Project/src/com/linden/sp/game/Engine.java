@@ -62,6 +62,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 
 	private int numberOfCops = 0;
 	private int numberOfCC=0;
+	private int numberOfItems=0;
 	
 	//variables that are changed based on level and mode
 	public static int level;
@@ -125,13 +126,15 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			if(surfaceCreated){
 				obstacle();
 				cop();
-				item();
+				//no items in career mode
+				if (survival){
+					item();
+				}
 			}
 			totalRunTime();
 		}
 		//check to see what to start
 		//if music is off dont start
-		//items
 
 		//score and check if win condition
 		incrementScore();
@@ -224,7 +227,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			}
 			
 		
-	}
+		}
 	// moves existing cop cars
 	synchronized(gameView.copElement){
 		for (Iterator<Cops> car = gameView.copElement.iterator(); car.hasNext();){
@@ -274,7 +277,34 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				
 			}
 		}
-		
+		// moves existing cop cars
+		synchronized(gameView.itemElement){
+			for (Iterator<Item> item = gameView.itemElement.iterator(); item.hasNext();){
+
+				// Get the current item
+	        	Item currentItem = item.next();
+	        	
+	        	// item elements are out of bounds
+	        	if (currentItem.checkBounds()){
+	        		item.remove();
+	        		numberOfItems--; 
+	        		Log.i("Item ", "Obstruction Destroyed at " + totalRunTime);
+	        	}
+	        	
+	        	else if (currentItem.checkCollision(gameView.player)) {
+	        		// Remove the item
+	        		item.remove();
+	        		numberOfItems--;
+	        		//update score
+	        		calculateScore();
+	        		//update health
+	        		gameView.player.damagePlayer(currentItem.getDamage());
+	        		// Debugging
+	        		Log.i("Item ", "Item Destroyed at " + totalRunTime);
+	        	}
+			}
+			
+		}
 		
 		
 	}
@@ -382,9 +412,15 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 
 	// calculate score based off time and hitting obstacles
 	public void calculateScore(){		
-		score = score+1 * Player.scoreMult;
-		Log.i("calculateScore ", "Current Score " + score);
-		
+
+		if (Item.coinFlag){
+			score += 10 * difficulty;
+			Log.i("calculateScore ", "Current Score " + score);
+		}
+		else{
+			score = score+1 * Player.scoreMult;
+			Log.i("calculateScore ", "Current Score " + score);
+		}
 	}
 
 	@Override

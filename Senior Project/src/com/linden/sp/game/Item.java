@@ -25,9 +25,15 @@ public class Item {
 		private int itemDrawable;
 		private int damage;
 		private Bitmap itemImage;
+		static boolean coinFlag;
+		static boolean rocketFlag;
 		
 		//Civilian car images
 		private final int[] items = {
+				R.drawable.coin,
+				R.drawable.coin,
+				R.drawable.coin,
+				R.drawable.coin,
 				R.drawable.wrench
 		};
 		
@@ -87,11 +93,17 @@ public class Item {
 			itemDrawable = items[randomImage];
 			
 			//check image and apply effects
-			if (randomImage == 0){
-				damage=-25;
+			if (randomImage <= 3){
+				coinFlag = true;
+				rocketFlag=false;
 			}
-			else if (randomImage == 5){
-				
+			else if (randomImage == 4){
+				damage=-25;
+				coinFlag=false;
+				rocketFlag=false;
+			}
+			else if (randomImage == 6){
+				rocketFlag=true;
 			}
 			
 			
