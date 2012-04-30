@@ -90,10 +90,18 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
    		canvas.drawText(""+Player.playerHealth, (leftBound/2), (canvas.getHeight()/10) + pText.getTextSize(), pText);
    		
    		if(Engine.career){
+   			// Remaining Time display
+   			if(Player.getCareerFinish() <0){
+   	   			canvas.drawText("Time", rightBound + (leftBound/2) , (canvas.getHeight()/10), pText);
+   	   			canvas.drawText(""+Engine.remainingTime, rightBound +(leftBound/2), (canvas.getHeight()/10) + (pText.getTextSize()), pText);
+
+   			}
+   			else{
    			// Draw Number of cars hit
    			canvas.drawText("Cars Hit", rightBound + (leftBound/2) , (canvas.getHeight()/10), pText);
    			canvas.drawText(""+Engine.carsHit, rightBound +(leftBound/2), (canvas.getHeight()/10) + (pText.getTextSize()), pText);
-		}
+   			}
+   		}
    		else if (Engine.survival){
    			// Draw Score
    			canvas.drawText("Score", rightBound + (leftBound/2) , (canvas.getHeight()/10), pText);

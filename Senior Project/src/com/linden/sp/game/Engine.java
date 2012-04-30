@@ -58,6 +58,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	private int lastObstacleTime = 0;
 	private int lastCopTime=0;
 	private int lastItemTime=0;
+	static int remainingTime=0;
 
 	private int numberOfCops = 0;
 	private int numberOfCC=0;
@@ -160,6 +161,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			Log.i("Game Time", "Game has been running for " + (int)actualRunningTime + " seconds");
 			Log.i("Game Time", "Game running time: " + totalRunTime);
 		}
+		remainingTime = maxLevelTime -(int)actualRunningTime;
 		
 	}
 	private void obstacle(){
