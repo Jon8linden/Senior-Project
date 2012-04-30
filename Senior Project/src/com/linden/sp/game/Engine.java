@@ -335,9 +335,8 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 	//prints out a instruction toast if variables have been set
 	private void toast() {
-
+		//toast instructions if values are set
 		if (valuesSetFlag){
-			Log.d("toast ", "one if in");
 			if (Engine.careerDestroy){
 				Toast.makeText(Engine.this, "Hit " + Player.getCareerFinish() + " civilian cars", Toast.LENGTH_SHORT).show();
 			}
@@ -467,7 +466,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		if (career){
 			//if player hits designated number of cars they win
 			if (careerDestroy){
-				if (carsHit == Player.getCareerFinish()){
+				if (carsHit >= Player.getCareerFinish()){
 					Intent intent = new Intent(Engine.this, Finish.class);
 					Bundle bundle = new Bundle();
 					
@@ -477,7 +476,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					bundle.putInt("time", (int)actualRunningTime);
 					bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
 					bundle.putInt("levelGoalCars",Player.getCareerFinish());
-					bundle.putInt("level", level+1);
+					bundle.putInt("level", level);
 					
 					intent.putExtras(bundle);
 					startActivity(intent);
@@ -493,10 +492,10 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					
 					//fill bundle
 					bundle.putBoolean("won", true);
-					bundle.putBoolean("careerTime", true);
+					bundle.putInt("careerTime", maxLevelTime);
 					bundle.putInt("time", (int)actualRunningTime);
 					bundle.putInt("carsHit", carsHit);			//display number of cars hit out of carsHit
-					bundle.putInt("level", level+1);
+					bundle.putInt("level", level);
 					
 					intent.putExtras(bundle);
 					startActivity(intent);
@@ -518,8 +517,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				bundle.putBoolean("won", false);
 				bundle.putInt("time", (int)actualRunningTime);
 				bundle.putInt("carsHit", carsHit);
-				bundle.putInt("levelGoal",Player.getCareerFinish());
-				bundle.putInt("level", level+1);
+				bundle.putInt("levelGoalCars",Player.getCareerFinish());
+				bundle.putInt("level", level);
+				bundle.putInt("careerTime", maxLevelTime);
 				
 				intent.putExtras(bundle);
 				startActivity(intent);
@@ -619,7 +619,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					}
 					//pause button
 					else{
-						Player.playerHealth = 0;
+						carsHit=99;
 						
 					}
 			}
