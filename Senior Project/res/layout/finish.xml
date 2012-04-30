@@ -41,6 +41,17 @@
 			    android:id="@+id/txtTime" 
 			    android:text="">
 			</TextView>
+			
+			<!-- Score -->
+		    <TextView 
+			    android:layout_height="wrap_content" 
+			    android:layout_width="fill_parent" 
+				android:layout_centerHorizontal="true"
+				android:gravity="center_horizontal"
+			    android:textAppearance="?android:attr/textAppearanceLarge"
+			    android:id="@+id/txtScoreNum" 
+			    android:text="">
+			</TextView>
 	   </LinearLayout>
     
     <!-- Won -->
@@ -85,29 +96,11 @@
     </RelativeLayout>
     
 	<!-- Survival -->
-	<LinearLayout
-	    	android:id="@+id/viewSurvival" 
-			android:orientation="vertical"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content">
-		    <TextView 
-			    android:layout_height="wrap_content" 
-			    android:layout_width="fill_parent" 
-				android:layout_centerHorizontal="true"
-				android:gravity="center_horizontal"
-			    android:textAppearance="?android:attr/textAppearanceLarge"
-			    android:id="@+id/txtScoreNum" 
-			    android:text="">
-			</TextView>
-    	</LinearLayout>
     	<RelativeLayout
-		
-		android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent">
-
-		
-
+			android:id="@+id/viewSurvival" 
+			android:orientation="horizontal"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent">
 	    
 	    <Button 
 		    android:text="Again?" 

@@ -61,11 +61,11 @@ public final class R {
         public static final int btnHard=0x7f08001f;
         public static final int btnHelp=0x7f08001a;
         public static final int btnMedium=0x7f08001e;
-        public static final int btnNextLvl=0x7f080010;
+        public static final int btnNextLvl=0x7f080011;
         public static final int btnOK=0x7f08000b;
-        public static final int btnQuit=0x7f080013;
+        public static final int btnQuit=0x7f080014;
         public static final int btnQuit2=0x7f080017;
-        public static final int btnRetry=0x7f080012;
+        public static final int btnRetry=0x7f080013;
         public static final int btnSettings=0x7f08001b;
         public static final int btnSurvival=0x7f080018;
         public static final int carselect=0x7f080002;
@@ -76,12 +76,12 @@ public final class R {
         public static final int lblSpeed=0x7f080005;
         public static final int selectedCar=0x7f080001;
         public static final int txtCarsHit=0x7f08000d;
-        public static final int txtScoreNum=0x7f080015;
+        public static final int txtScoreNum=0x7f08000f;
         public static final int txtTime=0x7f08000e;
         public static final int txtfinishedTitle=0x7f08000c;
-        public static final int viewLost=0x7f080011;
-        public static final int viewSurvival=0x7f080014;
-        public static final int viewWon=0x7f08000f;
+        public static final int viewLost=0x7f080012;
+        public static final int viewSurvival=0x7f080015;
+        public static final int viewWon=0x7f080010;
     }
     public static final class layout {
         public static final int about=0x7f030000;

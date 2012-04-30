@@ -69,7 +69,7 @@ public class Finish extends Activity{
 			
 	    	//Score
 	    	TextView scoreText = (TextView) findViewById (R.id.txtScoreNum);
-	    	scoreText.setText("Finfal Score: " + score);
+	    	scoreText.setText("Final Score: " + score);
 	    	
 	    	//cars hit
 	    	TextView txtCarsHit = (TextView) findViewById (R.id.txtCarsHit);
@@ -77,7 +77,7 @@ public class Finish extends Activity{
     		
     		//time lasted
     		TextView txtTime = (TextView) findViewById (R.id.txtTime);
-    		txtTime.setText("Time Lasted " + timeTaken + " seconds");
+    		txtTime.setText("Time Lasted: " + timeTaken + " seconds");
     		
 			viewSurvial.setVisibility(View.VISIBLE);
 			viewLost.setVisibility(View.GONE);
