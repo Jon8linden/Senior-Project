@@ -89,19 +89,29 @@ public class Finish extends Activity{
 		//Career Win
 			
     	else if(win){
-    		if(LevelGoalCars<=0){
-        		TextView txtTime = (TextView) findViewById (R.id.txtTime);
+    		if (level == 7){
+    			TextView txtTime = (TextView) findViewById (R.id.txtTime);
         		txtTime.setText(timeTaken + " of " + careerTime + " seconds");
+        		
+    			viewWon.setVisibility(View.GONE);
+    			viewLost.setVisibility(View.GONE);
+    			viewSurvial.setVisibility(View.GONE);
     		}
     		else{
-    			TextView txtCarsHit = (TextView) findViewById (R.id.txtCarsHit);
-    			txtCarsHit.setText("Cars Hit: " + carsHit + " of " + LevelGoalCars);
-    		}
     		
-			viewWon.setVisibility(View.VISIBLE);
-			viewLost.setVisibility(View.GONE);
-			viewSurvial.setVisibility(View.GONE);
-			
+	    		if(LevelGoalCars<=0){
+	        		TextView txtTime = (TextView) findViewById (R.id.txtTime);
+	        		txtTime.setText(timeTaken + " of " + careerTime + " seconds");
+	    		}
+	    		else{
+	    			TextView txtCarsHit = (TextView) findViewById (R.id.txtCarsHit);
+	    			txtCarsHit.setText("Cars Hit: " + carsHit + " of " + LevelGoalCars);
+	    		}
+	    		
+				viewWon.setVisibility(View.VISIBLE);
+				viewLost.setVisibility(View.GONE);
+				viewSurvial.setVisibility(View.GONE);
+    		}
 	    	// Set the title's text
 	    	titleText.setText("You Won!");
 		}
@@ -192,17 +202,9 @@ public class Finish extends Activity{
 		});
 		
 		
-		// Level select button
-		Button btn_MainMenu = (Button) findViewById (R.id.btnQuit);
-		btn_MainMenu.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// Kill this activity
-				finish();
-			}
-		});
 		
 		// Level select button
-		Button btn_quit = (Button) findViewById (R.id.btnQuit2);
+		Button btn_quit = (Button) findViewById (R.id.btnQuit);
 		btn_quit.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// Kill this activity

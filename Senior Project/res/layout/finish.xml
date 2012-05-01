@@ -85,14 +85,7 @@
 		    android:layout_height="wrap_content"
 		   	android:layout_alignParentBottom="true">
 	    </Button>
-	    <Button 
-		    android:text="Quit" 
-		    android:id="@+id/btnQuit"
-		    android:layout_width="100dp"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentBottom="true"
-		    android:layout_alignParentRight="true">
-	    </Button>
+
     </RelativeLayout>
     
 	<!-- Survival -->
@@ -109,14 +102,14 @@
 		    android:layout_height="wrap_content"
 		   	android:layout_alignParentBottom="true">
 	    </Button>
-	    <Button 
+
+	    
+    </RelativeLayout>
+    	    <Button 
 		    android:text="Quit" 
-		    android:id="@+id/btnQuit2"
+		    android:id="@+id/btnQuit"
 		    android:layout_width="100dp"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
-		    android:layout_alignParentRight="true">
-	    </Button>
-    </RelativeLayout>
-    
+		    android:layout_alignParentRight="true"/>
 </RelativeLayout>

@@ -660,7 +660,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					}
 					//pause button
 					else{
-						carsHit=99;
+						actualRunningTime=999;
 						
 					}
 			}
