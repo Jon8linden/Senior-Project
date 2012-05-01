@@ -173,6 +173,7 @@ public class Player{
 			setCareerFinish(-1);
 			//set survival time
 			Engine.maxLevelTime = 360;
+			Engine.lineDelay=0;
 		}
 		//update difficulty if survival mode is selected
 		Engine.updateDifficulty();

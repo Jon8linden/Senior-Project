@@ -59,11 +59,13 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	private int lastObstacleTime = 0;
 	private int lastCopTime=0;
 	private int lastItemTime=0;
+	private int lastLineTime =0;
 	static int remainingTime=0;
 
 	private int numberOfCops = 0;
 	private int numberOfCC=0;
 	private int numberOfItems=0;
+	public static int lineLaneCounter=1;
 	
 	//variables that are changed based on level and mode
 	public static int level;
@@ -81,6 +83,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	//obstacle chance
 	private static Random random = new Random();
 	static int spawnDelay = 50;
+	static int lineDelay = 10;
 	static int maxCC=0;
 	static int maxCops=0;
 	
@@ -127,6 +130,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			if(surfaceCreated){
 				obstacle();
 				cop();
+				lines();
 				//no items in career mode
 				if (survival){
 					item();
@@ -260,7 +264,44 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	}
 	
 }
+	private void lines(){
+		// place obstacle on the screen if it has not produced an obstacle within the spawn time
+		if ((totalRunTime - lastLineTime) > lineDelay){
+			synchronized (gameView.lineElement){
+				gameView.lineElement.add(new Lines(getResources()));
+				//set the time of the last obstacle
+				lastLineTime = totalRunTime;
+				Log.i("line made", " : " + totalRunTime);
+				
+				if(lineLaneCounter<3){
+					lineLaneCounter++;
+				}
+				else{
+					lineLaneCounter=1;
+				}
+				
+			}
+			
+		
+		}
+	// moves existing cop cars
+	synchronized(gameView.lineElement){
+		for (Iterator<Lines> line = gameView.lineElement.iterator(); line.hasNext();){
+
+			// Get the current line
+        	Lines currentLine = line.next();
+        	
+        	// If any of the obstruction elements are out of bounds
+        	if (currentLine.checkBounds()){
+        		line.remove();
+
+        		Log.i("Line ", "Destroyed at " + totalRunTime);
+        	}
+		}
+		
+	}
 	
+}	
 	
 	private void item(){
 		int  iRandom= random.nextInt(iChance);
@@ -278,7 +319,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 				
 			}
 		}
-		// moves existing cop cars
+		// moves existing Items
 		synchronized(gameView.itemElement){
 			for (Iterator<Item> item = gameView.itemElement.iterator(); item.hasNext();){
 
@@ -306,6 +347,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			}
 			
 		}
+		
 		
 		
 	}
