@@ -70,6 +70,11 @@ public class Player{
 			//finish condition destroy cars and how many
 			Engine.careerDestroy = true;
 			setCareerFinish(25);
+			//lane width based off player width
+			Engine.laneWidth=playerImage.getWidth();
+			//delay for lane lines
+			
+			
 		}
 		else if (Engine.level == 2){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.delsol600);
@@ -156,6 +161,7 @@ public class Player{
 			//finish condition
 			Engine.careerDestroy = true;
 			setCareerFinish(60);
+			Engine.lineDelay=2;
 		}
 		else if (Engine.level == 7){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.stiplayer600); 

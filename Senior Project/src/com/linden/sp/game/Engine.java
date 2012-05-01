@@ -65,6 +65,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	private int numberOfCops = 0;
 	private int numberOfCC=0;
 	private int numberOfItems=0;
+	
+	public static int lanePadding;
+	public static int laneWidth;
 	public static int lineLaneCounter=1;
 	
 	//variables that are changed based on level and mode
@@ -265,6 +268,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	
 }
 	private void lines(){
+		//lineDelay = (int)(10/Player.getSpeed());
 		// place obstacle on the screen if it has not produced an obstacle within the spawn time
 		if ((totalRunTime - lastLineTime) > lineDelay){
 			synchronized (gameView.lineElement){

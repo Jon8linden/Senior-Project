@@ -47,7 +47,7 @@ public class Cops {
 		setImageAttributes();
 		copImage = BitmapFactory.decodeResource(res,copDrawable);
 		
-		laneWidth= copImage.getWidth();
+		laneWidth= Engine.laneWidth;
 		
 		// Get horizontal starting location (between bounds, accounting for Civilian Car image width and keeping within the 4 lanes)
 		int randomX=random.nextInt(5);

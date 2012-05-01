@@ -27,7 +27,7 @@ public class Item {
 		private Bitmap itemImage;
 		static boolean coinFlag;
 		static boolean rocketFlag;
-		
+		static int laneWidth;
 		//Civilian car images
 		private final int[] items = {
 				R.drawable.coin,
@@ -43,7 +43,7 @@ public class Item {
 			setImageAttributes();
 			itemImage = BitmapFactory.decodeResource(res,itemDrawable);
 			
-			
+			laneWidth= Engine.laneWidth;
 			
 			// Get horizontal starting location (between bounds, accounting for Civilian Car image width and keeping within the 4 lanes)
 			int randomX=random.nextInt(5);
@@ -52,13 +52,13 @@ public class Item {
 				itemX = gameView.leftBound;
 			}
 			else if (randomX>1 && randomX<=2){
-				itemX = gameView.leftBound + Civilian.laneWidth;
+				itemX = gameView.leftBound + laneWidth;
 			}
 			else if (randomX>2 && randomX<=3){
-				itemX = gameView.leftBound + Civilian.laneWidth*2;
+				itemX = gameView.leftBound + laneWidth*2;
 			}
 			else if (randomX>3 && randomX<=4){
-				itemX = gameView.rightBound-Civilian.laneWidth;
+				itemX = gameView.rightBound- laneWidth;
 			}
 
 			itemY = 0 - itemImage.getHeight();
