@@ -48,6 +48,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	private int scoreDelay= 25;
 	private int currentScoreTime=0;
 	double actualRunningTime;
+	public static int maxLevelTime=60; //set so an instant loose does not occur while game is loading (60 seconds)
 	
 	//start up game variables
 	static Boolean surfaceCreated = false;
@@ -70,7 +71,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	public static int difficulty;
 	public static boolean career = false;
 	public static boolean survival = false;
-	public static int maxLevelTime=60; //set so an instant loose does not occur while game is loading (60 seconds)
+	
 	
 	static double levelSpeedMult = 1;
 	static int score;
@@ -577,6 +578,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					bundle.putInt("time", (int)actualRunningTime);
 					bundle.putInt("carsHit", carsHit);
 					bundle.putInt("score", score);
+					bundle.putInt("level", level);
 					bundle.putInt("difficulty", difficulty);
 					intent.putExtras(bundle);
 					startActivity(intent);

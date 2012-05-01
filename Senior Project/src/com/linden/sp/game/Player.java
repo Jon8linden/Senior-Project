@@ -34,7 +34,7 @@ public class Player{
 	
 	public Player(Resources res, int x, int y){
 		//super (contextPlayer);
-		
+
 		//change image
 		changePlayerImage(res);
 

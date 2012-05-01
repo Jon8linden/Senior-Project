@@ -143,7 +143,7 @@ public class Finish extends Activity{
 				finish();
 			}
 		});
-		//play again
+		//play again survival
 		Button btn_Again = (Button) findViewById (R.id.btnAgain);
 		btn_Again.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
