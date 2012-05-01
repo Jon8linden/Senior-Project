@@ -57,10 +57,10 @@ public class Civilian {
 			ccX = gameView.leftBound;
 		}
 		else if (randomX>1 && randomX<=2){
-			ccX = gameView.leftBound + laneWidth;
+			ccX = gameView.leftBound + laneWidth+ Engine.lanePadding;
 		}
 		else if (randomX>2 && randomX<=3){
-			ccX = gameView.leftBound + laneWidth*2;
+			ccX = gameView.leftBound + laneWidth*2 + Engine.lanePadding*2;
 		}
 		else if (randomX>3 && randomX<=4){
 			ccX = gameView.rightBound-laneWidth;

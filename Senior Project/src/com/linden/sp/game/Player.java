@@ -70,10 +70,8 @@ public class Player{
 			//finish condition destroy cars and how many
 			Engine.careerDestroy = true;
 			setCareerFinish(25);
-			//lane width based off player width
-			Engine.laneWidth=playerImage.getWidth();
 			//delay for lane lines
-			
+			Engine.lineDelay=10;
 			
 		}
 		else if (Engine.level == 2){
@@ -92,6 +90,7 @@ public class Player{
 			setCareerFinish(-1);
 			//set survival time
 			Engine.maxLevelTime = 30;
+			Engine.lineDelay=10;
 		}
 		else if (Engine.level == 3){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.jeep600);
@@ -108,6 +107,7 @@ public class Player{
 			setCareerFinish(-1);
 			//set survival time
 			Engine.maxLevelTime = 45;
+			Engine.lineDelay=8;
 		}
 		else if (Engine.level == 4){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.blacktruck);
@@ -123,7 +123,7 @@ public class Player{
 			//finish condition
 			Engine.careerDestroy = true;
 			setCareerFinish(60);
-			//set amount of time
+			Engine.lineDelay=8;
 
 
 		}
@@ -145,6 +145,7 @@ public class Player{
 			setCareerFinish(-1);
 			//set survival time
 			Engine.maxLevelTime = 200;
+			Engine.lineDelay=3;
 
 		} 
 		else if (Engine.level == 6){
@@ -161,7 +162,7 @@ public class Player{
 			//finish condition
 			Engine.careerDestroy = true;
 			setCareerFinish(60);
-			Engine.lineDelay=2;
+			Engine.lineDelay=1;
 		}
 		else if (Engine.level == 7){
 			playerImage = BitmapFactory.decodeResource(res, R.drawable.stiplayer600); 
@@ -179,8 +180,11 @@ public class Player{
 			setCareerFinish(-1);
 			//set survival time
 			Engine.maxLevelTime = 360;
-			Engine.lineDelay=0;
+			Engine.lineDelay=1;
 		}
+		//lane width based off player width
+		Engine.laneWidth=playerImage.getWidth();
+		
 		//update difficulty if survival mode is selected
 		Engine.updateDifficulty();
 		

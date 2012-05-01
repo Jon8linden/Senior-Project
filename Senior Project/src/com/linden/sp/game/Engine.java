@@ -115,6 +115,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 	SharedPreferences preferences;
 	boolean musicEnabled;
 	boolean itemsEnabled;
+	boolean linesEnabled;
 
 
 
@@ -133,7 +134,9 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 			if(surfaceCreated){
 				obstacle();
 				cop();
-				lines();
+				if (linesEnabled){
+					lines();
+				}
 				//no items in career mode
 				if (survival){
 					item();
@@ -378,6 +381,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 		preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		musicEnabled = preferences.getBoolean("music", true);
 		itemsEnabled = preferences.getBoolean("items", true);
+		linesEnabled= preferences.getBoolean("lines",true);
 	    
         //get data from bundle 
         Bundle bundle = getIntent().getExtras();

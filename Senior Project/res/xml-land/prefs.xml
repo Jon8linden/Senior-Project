@@ -6,8 +6,8 @@
     	android:title="Music" 
     	android:key="music" 
     	android:defaultValue="true" 
-    	android:summaryOff="musicOff" 
-    	android:summaryOn="musicOn">
+    	android:summaryOff="Music Off" 
+    	android:summaryOn="Music On">
     </CheckBoxPreference>
     
     <!-- Items -->
@@ -15,8 +15,17 @@
 	    android:title="Items" 
 	    android:key="items" 
 	    android:defaultValue="true" 
-	    android:summaryOff="itemsOff" 
-	    android:summaryOn="itemsOn">
+	    android:summaryOff="Items Off" 
+	    android:summaryOn="Items On">
+    </CheckBoxPreference>
+        
+    <!-- Line Speed -->
+    <CheckBoxPreference 
+	    android:title="Lines" 
+	    android:key="lines" 
+	    android:defaultValue="true" 
+	    android:summaryOff="Lines Off" 
+	    android:summaryOn="Lines On">
     </CheckBoxPreference>
     
 </PreferenceScreen>

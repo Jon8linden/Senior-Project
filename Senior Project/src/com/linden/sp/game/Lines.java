@@ -41,23 +41,21 @@ public class Lines {
 		Image = BitmapFactory.decodeResource(res,linesDrawable);
 		
 		laneWidth= Engine.laneWidth;
+		Engine.lanePadding=(Image.getWidth()*2);
 		
-		//starting location
+		
+		//between lane 2 and 3
 		if (Engine.lineLaneCounter==1){
-			ccX = gameView.leftBound + laneWidth*2;
-			
-			Log.i("Line ", "Counter " + counter);
+			ccX = gameView.leftBound + (laneWidth*2) +Engine.lanePadding;
 		} 
 		//between lane 4 and 5
 		else if(Engine.lineLaneCounter == 2){
-			
-			ccX = gameView.rightBound-Engine.laneWidth;
-
+			ccX = gameView.leftBound + (laneWidth*3) +(Engine.lanePadding*2);
+			//ccX = gameView.rightBound-Engine.laneWidth+Engine.lanePadding;
 		}
 		//between lane one and two
 		else{
-			ccX = gameView.leftBound + laneWidth;
-
+			ccX = gameView.leftBound + Engine.laneWidth;
 		}
 
 

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
 		android:gravity="center_horizontal"
 		android:padding="10dp"
-        android:text="Senior Project designed and programed by" />
+        android:text="Designed, programed, and graphics done by" />
    
      <TextView 
     	android:layout_width="fill_parent"
@@ -20,7 +20,12 @@
 		android:gravity="center_horizontal"
 		android:padding="10dp"
         android:text="Jon Linden Class of 2012 Plymouth State University." />
-    
-    
+     <TextView 
+    	android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:padding="10dp"
+        android:text="Music done by: Greg Kuehn http://www.primaryelements.com" />
+
 	    
 </LinearLayout>
