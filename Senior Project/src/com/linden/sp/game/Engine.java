@@ -138,7 +138,7 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					lines();
 				}
 				//no items in career mode
-				if (survival){
+				if (survival && itemsEnabled){
 					item();
 				}
 			}
