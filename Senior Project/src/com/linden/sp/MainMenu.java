@@ -46,6 +46,7 @@ public class MainMenu extends Activity{
 		});
 		
 		//Sets up Help button and action
+		/*
 		Button btnHelp = (Button) findViewById (R.id.btnHelp);
 		btnHelp.setOnClickListener(new View.OnClickListener() {
 			
@@ -53,6 +54,7 @@ public class MainMenu extends Activity{
 				startActivity(new Intent("android.intent.action.HELP"));
 			}
 		});
+		*/
 		
 		//Sets up Settings button and action
 		Button btnSettings = (Button) findViewById (R.id.btnSettings);
