@@ -699,23 +699,16 @@ public class Engine extends Activity implements SensorEventListener, OnTouchList
 					//gas button
 					if (x == 1){
 						//move image up 
+						yDirection=0;
 						yDirection= yDirection -Player.getAcceleration();
 					}
-					//break button
-					else if (x==-1){
-						//move image down
-						yDirection= yDirection + Player.getBreakingPower();
 
 
-					}
-					//pause button
-					else{
-						actualRunningTime=999;
-						
-					}
 			}
 			else if (event.getAction() == android.view.MotionEvent.ACTION_UP){
-					yDirection=0;
+				//move image down
+				yDirection=0;
+				yDirection= yDirection + Player.getBreakingPower();
 			}
 
 			return true;

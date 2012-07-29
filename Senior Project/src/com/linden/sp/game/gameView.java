@@ -71,6 +71,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 		canvas.drawColor(Color.GRAY);
 		
    		// Draw Grass
+		/*
    		Paint pGreen = new Paint();
    		pGreen.setStyle(Paint.Style.FILL);
    		pGreen.setColor(0xFF005e20);
@@ -82,6 +83,15 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
    		Rect rightGrass = new Rect();
    		rightGrass.set((int) rightBound,0, canvas.getWidth(), canvas.getHeight());
    		canvas.drawRect(rightGrass, pGreen);
+   		*/
+   		// Draw lines
+		synchronized (lineElement) {
+			if (lineElement.size() > 0) {
+	            for (Iterator<Lines> lineit = lineElement.iterator(); lineit.hasNext();) {
+	            	lineit.next().draw(canvas);
+	            }
+			}
+	     }
    		
    		// Set up text (color size location)
    		Paint pText = new Paint();
@@ -111,6 +121,9 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
    			canvas.drawText("Score", rightBound + (leftBound/2) , (canvas.getHeight()/10), pText);
    			canvas.drawText(""+Engine.score, rightBound +(leftBound/2), (canvas.getHeight()/10) + pText.getTextSize(), pText);
    		}
+   		
+
+   		
         // Draw Character
 		player.doDraw(canvas);
 
@@ -152,14 +165,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 	            }
 			}
         }
-		// Draw lines
-		synchronized (lineElement) {
-			if (lineElement.size() > 0) {
-	            for (Iterator<Lines> lineit = lineElement.iterator(); lineit.hasNext();) {
-	            	lineit.next().draw(canvas);
-	            }
-			}
-        }
+		
 
    		
 	}
@@ -171,8 +177,8 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 		gameHeight = this.getHeight();
 		
 		//setup boundaries
-		rightBound = gameWidth-(gameWidth/5);
-		leftBound = (gameWidth/5);
+		rightBound = gameWidth;
+		leftBound = 0;
 		
 		topBound = 0;
 		bottomBound= gameHeight;
@@ -250,7 +256,7 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 
 	public int clickScreen(float x, float y) {
 		//break button rect box
-		Rect breakButton = new Rect(breakButtonX, breakButtonY, breakButtonX+breakBitmap.getWidth(), breakButtonY+breakBitmap.getHeight());
+		//Rect breakButton = new Rect(breakButtonX, breakButtonY, breakButtonX+breakBitmap.getWidth(), breakButtonY+breakBitmap.getHeight());
 		
 		//gas button rect box
 		Rect gas = new Rect(gasButtonX, gasButtonY, gasButtonX+gasBitmap.getWidth(), gasButtonY+gasBitmap.getHeight());
@@ -261,13 +267,13 @@ public class gameView extends SurfaceView implements SurfaceHolder.Callback{
 			return 1;
 		
 		} 
-		
+		/*
 		//check to see if break was pressed
 		else if (breakButton.contains((int) x, (int)y)) {
 			return -1;
 		
 		} 
-		
+		*/
 		//did not touch a peddle
 		else {
 			return 0;
